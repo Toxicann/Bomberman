@@ -1,6 +1,7 @@
 class Player {
-  constructor(x = 50, y = 53) {
-    this.playerPos = 1;
+  constructor(x, y) {
+    this.playerPos = 0;
+    this.playerSprite = 0;
     this.x = x;
     this.y = y;
     this.id = "p1";
@@ -19,7 +20,7 @@ class Player {
   create() {
     // context.save();
     context.drawImage(
-      playerImg,
+      playerSprite[this.playerSprite],
       this.currentSpriteSrc[this.playerPos],
       this.spriteSrc.y,
       this.width,
@@ -38,6 +39,21 @@ class Player {
       this.animationInterval = 0;
     } else {
       this.animationInterval++;
+    }
+  }
+
+  checkDeath() {
+    if (!this.isAlive) {
+      this.playerPos = 0;
+      this.playerSprite = 1;
+      this.currentSpriteSrc = playerDeathSprite;
+      const playerDeathAnimation = setInterval(() => {
+        console.log(this.playerPos);
+        this.playerPos++;
+        if (this.playerPos > 6) {
+          clearInterval(playerDeathAnimation);
+        }
+      }, 250);
     }
   }
 }

@@ -1,26 +1,26 @@
-class StrongWall {
+class Door {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.width = gridCol;
-    this.height = gridRow;
+    this.width = DOOR_WIDTH * SCALE_FACTOR;
+    this.height = DOOR_HEIGHT * SCALE_FACTOR;
+    this.playerDetected = false;
   }
 
   create() {
-    context.drawImage(strongWallImg, this.x, this.y, this.width, this.height);
+    context.drawImage(doorImg, this.x, this.y, this.width, this.height);
   }
 
-  checkCollision() {
+  checkDoorCollision() {
     if (
       player.x < this.x + this.width &&
       player.x + player.width * PLAYER_SCALE_FACTOR > this.x &&
       player.y < this.y + this.height &&
       player.y + player.height * PLAYER_SCALE_FACTOR > this.y
     ) {
-      player.speed = 0;
-      player.playerCollision = true;
+      this.playerDetected = true;
     } else {
-      player.speed = SPEED;
+      this.playerDetected = false;
     }
   }
 }

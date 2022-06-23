@@ -1,16 +1,30 @@
 const canvas = document.getElementById("game__window");
 let context = canvas.getContext("2d");
 
+context.webkitImageSmoothingEnabled = false;
+context.webkitImageSmoothingEnabled = false;
+
 canvas.width = WINDOW_WIDTH;
 canvas.height = WINDOW_HEIGHT;
 
-//create player
-const player = new Player();
-
 let playerMoves = playerMoveDown;
+let bomb;
 
 //wall environment matrix creation
 let wallArr = [];
+var randomDoorCounter = 0;
+
+/**
+ * It creates a 2D array of strings, where each string is either "wall", "brick", or "empty".
+ *
+ * The "wall" strings are the borders of the maze and some inner which are indestructable of maze.
+ *
+ * The "brick" strings are the randomly generated inner walls which are destructable of maze.
+ *
+ * The "empty" strings are the spaces in the maze where the player can move.
+ *
+ * The function also keeps track of the number of "brick" strings in the array.
+ */
 const createEnv = () => {
   for (let i = 0; i < numRows; i++) {
     let wallArrRow = [];
@@ -29,12 +43,14 @@ const createEnv = () => {
         j % 2 == 0
       ) {
         wallArrRow.push("wall");
+      } else if (Math.random() < 0.3) {
+        wallArrRow.push("brick");
+        randomDoorCounter++;
       }
       //for empty spaces
       else {
         wallArrRow.push("empty");
       }
-      // wallArrRow.push((i, j));
     }
     wallArr.push(wallArrRow);
   }
@@ -44,89 +60,102 @@ const createEnv = () => {
 createEnv();
 
 //wall object creation
-let wallArrObj = [];
+let strWallArrObj = [];
+let brickArrObj = [];
+let bombArrObj = [];
+let playerCount = 0;
+let brickCount = 0;
+const doorLocation = getRndInteger(0, randomDoorCounter);
 
+let door;
 for (let i = 0; i < numRows; i++) {
   for (let j = 0; j < numCols; j++) {
     if (wallArr[i][j] === "wall") {
       const wall = new StrongWall(gridCol * j, gridRow * i);
-      wallArrObj.push(wall);
+      strWallArrObj.push(wall);
+    } else if (wallArr[i][j] === "brick") {
+      const brick = new Brick(brickGridCol * j, brickGridRow * i);
+      brickArrObj.push(brick);
+      brickCount++;
+      if (doorLocation == brickCount) {
+        door = new Door(brickGridCol * j, brickGridRow * i);
+      }
+    } else if (wallArr[i][j] === "empty" && playerCount === 0) {
+      player = new Player(brickGridCol * j, brickGridRow * i);
+      playerCount++;
     }
+
     // console.log(i, j);
   }
 }
 
-//draw function
+/**
+ * If the player has less than the max number of bombs on the field, create a new bomb object at the
+ * player's current position, add it to the bomb array, and increment the player's bomb count.
+ */
+const plantBomb = () => {
+  console.log(player.bombs_on_field, player.max_bombs_on_field);
+  if (player.bombs_on_field < player.max_bombs_on_field) {
+    bomb = new Bomb(player.x, player.y);
+    bomb.isPlanted = true;
+    player.bombs_on_field++;
+    bombArrObj.push(bomb);
+    console.log("bomb has been planted:");
+    console.log(`${player.x}, ${player.y}`);
+  } else {
+    console.log("max bombs on field reached");
+  }
+};
+
+/**
+ * It draws the player, door, walls, bricks, and bombs.
+ */
 const draw = () => {
+  context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
   player.create();
-  wallArrObj.forEach((wall) => {
+  door.create();
+  strWallArrObj.forEach((wall) => {
     wall.create();
   });
-};
-
-//collision
-collision = () => {
-  wallArrObj.forEach((wall) => {
-    // console.log(wall);
-    // console.log(player.y, wall.y + wall.height * SCALE_FACTOR);
-    wall.checkCollision();
+  brickArrObj.forEach((brick) => {
+    brick.create();
+  });
+  bombArrObj.forEach((bomb, index) => {
+    if (bomb.isPlanted) {
+      bomb.create();
+      bomb.bombAnimation();
+    }
+    setTimeout(() => {
+      bomb.explosion(index);
+    }, 5000);
   });
 };
 
-function animate() {
-  // collision();
-  draw();
+/**
+ * It checks for collisions between the player and the walls, bricks, and door.
+ */
+const collision = () => {
+  strWallArrObj.forEach((wall) => {
+    wall.checkCollision();
+  });
+  brickArrObj.forEach((brick) => {
+    brick.checkCollision();
+  });
+  door.checkDoorCollision();
+  brickArrObj.forEach((brick, index) => {
+    brick.checkDestruction(index);
+  });
+};
 
+/**
+ * "The animate function calls the draw function, and then calls itself again."
+ *
+ * This is what creates the animation.
+ */
+const animate = () => {
+  draw();
   requestAnimationFrame(animate);
-}
+};
 
 animate();
-
-//key event listener;
-addEventListener("keydown", ({ code }) => {
-  // console.log(code);
-  switch (code) {
-    case "KeyD":
-      // console.log(player.speed);
-      player.x += player.speed;
-      playerMoves = playerMoveRight;
-      collision();
-      if (player.playerCollision) {
-        player.x -= SPEED;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
-    case "KeyA":
-      player.x -= player.speed;
-      playerMoves = playerMoveLeft;
-      collision();
-      if (player.playerCollision) {
-        player.x += SPEED;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
-    case "KeyW":
-      player.y -= player.speed;
-      playerMoves = playerMoveUp;
-      collision();
-      if (player.playerCollision) {
-        player.y += SPEED;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
-    case "KeyS":
-      player.y += player.speed;
-      playerMoves = playerMoveDown;
-      collision();
-      if (player.playerCollision) {
-        player.y -= SPEED;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
-  }
-});
