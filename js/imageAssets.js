@@ -15,3 +15,9 @@ brickImg.src = "../assets/brick.png";
 
 const bombImg = new Image();
 bombImg.src = "../assets/bomb/bomb.png";
+
+const ballonImg = new Image();
+ballonImg.src = "../assets/enemies/ballon.png";
+
+const enemyDeathImg = new Image();
+enemyDeathImg.src = "../assets/enemies/destroy-enemy/destroy-enemy.png";

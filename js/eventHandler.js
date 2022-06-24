@@ -45,6 +45,19 @@ addEventListener("keydown", ({ code }) => {
       player.update();
       break;
 
+    //testing
+    case "KeyL":
+      enemy.update();
+      // playerMoves = playerMoveRight;
+      collision();
+      // if (player.playerCollision) {
+      //   player.x -= SPEED;
+      //   player.playerCollision = false;
+      // }
+      // player.update();
+      break;
+
+    //testing above
     case "Space":
       plantBomb();
       break;

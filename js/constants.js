@@ -27,6 +27,7 @@ const BOMB_HEIGHT = 16;
 const BOMB_WIDTH = 16;
 
 const SPEED = 4;
+const ESPEED = 5;
 
 const numCols = Math.floor(WINDOW_WIDTH / gridCol);
 const numRows = Math.floor(WINDOW_HEIGHT / gridRow);
@@ -43,3 +44,11 @@ const playerDeathSprite = [2, 18, 33, 50, 65, 80, 98];
 const brickSprite = [0, 18, 36, 54, 72, 90, 108];
 
 const bombSprite = [2, 20, 37];
+
+const ballonMoveLeft = [0, 18, 33];
+const ballonMoveRight = [65, 80, 96];
+const BallonDeath = [49];
+
+const ballonSprite = [ballonMoveLeft, ballonMoveRight];
+
+const enemyDeathSprite = [];

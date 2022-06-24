@@ -38,6 +38,19 @@ class Brick {
     }
   }
 
+  checkEnemyCollision() {
+    enemyObjArr.forEach((enemy) => {
+      if (
+        enemy.x < this.x + this.width * SCALE_FACTOR &&
+        enemy.x + enemy.width * PLAYER_SCALE_FACTOR > this.x &&
+        enemy.y < this.y + this.height * SCALE_FACTOR &&
+        enemy.y + enemy.height * PLAYER_SCALE_FACTOR > this.y
+      ) {
+        enemy.collision = true;
+      }
+    });
+  }
+
   checkDestruction(index) {
     if (this.isDestroyed) {
       const brickDestructionAnimation = setInterval(() => {

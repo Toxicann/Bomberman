@@ -13,7 +13,11 @@ let bomb;
 //wall environment matrix creation
 let wallArr = [];
 var randomDoorCounter = 0;
-
+const maxEnemyCount = 5;
+let enemyCount = 0;
+let playerCount = 0;
+let playeri;
+let playerj;
 /**
  * It creates a 2D array of strings, where each string is either "wall", "brick", or "empty".
  *
@@ -43,7 +47,12 @@ const createEnv = () => {
         j % 2 == 0
       ) {
         wallArrRow.push("wall");
-      } else if (Math.random() < 0.3) {
+      } else if (playerCount === 0) {
+        wallArrRow.push("player");
+        playeri = i;
+        playerj = j;
+        playerCount++;
+      } else if (Math.random() < 0.3 && (i > playeri + 2 || j > playerj + 3)) {
         wallArrRow.push("brick");
         randomDoorCounter++;
       }
@@ -54,6 +63,28 @@ const createEnv = () => {
     }
     wallArr.push(wallArrRow);
   }
+
+  // for (let i = 0; i < numRows; i++) {
+  //   for (let j = 0; j < numCols; j++) {
+  //     if (wallArr[i][j] === "empty" && playerCount === 0) {
+  //       wallArr[i][j] = "player";
+  //       playerCount++;
+  //       if(wallArr[i-1][j-1] == "brick"){
+  //         wallArr[i-1][j-1] == "empty"
+  //       }
+  //     }
+  //   }
+  // }
+
+  // for (let i = 0; i < numRows; i++) {
+  //   for (let j = 0; j < numCols; j++) {
+  //     if (wallArr[i][j] === "player") {
+  //       wallArr[i][j] = "player";
+  //       playerCount++;
+  //     }
+  //   }
+  // }
+
   console.log(wallArr);
 };
 
@@ -63,9 +94,13 @@ createEnv();
 let strWallArrObj = [];
 let brickArrObj = [];
 let bombArrObj = [];
-let playerCount = 0;
+let enemyObjArr = [];
+
 let brickCount = 0;
 const doorLocation = getRndInteger(0, randomDoorCounter);
+let animationInterval = 0;
+
+// const enemy = new Enemy(135, 90, 1);
 
 let door;
 for (let i = 0; i < numRows; i++) {
@@ -80,9 +115,14 @@ for (let i = 0; i < numRows; i++) {
       if (doorLocation == brickCount) {
         door = new Door(brickGridCol * j, brickGridRow * i);
       }
-    } else if (wallArr[i][j] === "empty" && playerCount === 0) {
+    } else if (wallArr[i][j] === "player") {
       player = new Player(brickGridCol * j, brickGridRow * i);
-      playerCount++;
+    } else if (wallArr[i][j] === "empty" && enemyCount < maxEnemyCount) {
+      if (Math.random() <= 0.04) {
+        enemy = new Enemy(brickGridCol * j, brickGridRow * i, enemyCount);
+        enemyCount++;
+        enemyObjArr.push(enemy);
+      }
     }
 
     // console.log(i, j);
@@ -121,6 +161,9 @@ const draw = () => {
   brickArrObj.forEach((brick) => {
     brick.create();
   });
+  enemyObjArr.forEach((enemy) => {
+    enemy.create();
+  });
   bombArrObj.forEach((bomb, index) => {
     if (bomb.isPlanted) {
       bomb.create();
@@ -138,9 +181,11 @@ const draw = () => {
 const collision = () => {
   strWallArrObj.forEach((wall) => {
     wall.checkCollision();
+    wall.checkEnemyCollision();
   });
   brickArrObj.forEach((brick) => {
     brick.checkCollision();
+    brick.checkEnemyCollision();
   });
   door.checkDoorCollision();
   brickArrObj.forEach((brick, index) => {
@@ -154,6 +199,16 @@ const collision = () => {
  * This is what creates the animation.
  */
 const animate = () => {
+  if (animationInterval >= 20) {
+    collision();
+    enemyObjArr.forEach((enemy) => {
+      enemy.update();
+    });
+    animationInterval = 0;
+  } else {
+    animationInterval++;
+  }
+
   draw();
   requestAnimationFrame(animate);
 };

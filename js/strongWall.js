@@ -23,4 +23,16 @@ class StrongWall {
       player.speed = SPEED;
     }
   }
+  checkEnemyCollision() {
+    enemyObjArr.forEach((enemy) => {
+      if (
+        enemy.x < this.x + this.width &&
+        enemy.x + enemy.width * PLAYER_SCALE_FACTOR > this.x &&
+        enemy.y < this.y + this.height &&
+        enemy.y + enemy.height * PLAYER_SCALE_FACTOR > this.y
+      ) {
+        enemy.collision = true;
+      }
+    });
+  }
 }
