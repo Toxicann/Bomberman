@@ -23,6 +23,7 @@ class StrongWall {
       player.speed = SPEED;
     }
   }
+
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {
       if (
