@@ -57,9 +57,20 @@ addEventListener("keydown", ({ code }) => {
       // player.update();
       break;
 
+    case "KeyP":
+      brickArrObj.forEach((brick) => {
+        brick.isDestroyed = true;
+      });
+      break;
+
     //testing above
     case "Space":
+      isLeftClear = true;
+      isRightClear = true;
+      isTopClear = true;
+      isBottomClear = true;
       plantBomb();
+
       break;
 
     case "KeyZ":

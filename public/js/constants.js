@@ -26,6 +26,9 @@ const DOOR_WIDTH = 14;
 const BOMB_HEIGHT = 16;
 const BOMB_WIDTH = 16;
 
+const EXPLOSION_WIDTH = 16;
+const EXPLOSION_HEIGHT = 16;
+
 const SPEED = 4;
 const ESPEED = 5;
 
@@ -47,8 +50,17 @@ const bombSprite = [2, 20, 37];
 
 const ballonMoveLeft = [0, 18, 33];
 const ballonMoveRight = [65, 80, 96];
-const BallonDeath = [49];
+const BallonDeath = [49, 49, 49];
+const enemyDeathSprite = [1, 17, 32];
 
-const ballonSprite = [ballonMoveLeft, ballonMoveRight];
+const ballonImgSprite = [ballonImg, enemyDeathImg];
+const ballonSprite = [
+  ballonMoveLeft,
+  ballonMoveRight,
+  enemyDeathSprite,
+  BallonDeath,
+];
 
-const enemyDeathSprite = [];
+const horizontalExplosion = [1, 19, 37, 55];
+const verticalExplosion = [4, 22, 37, 55];
+const centerExplosion = [1, 19, 37, 55];

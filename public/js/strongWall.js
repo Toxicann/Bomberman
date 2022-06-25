@@ -36,4 +36,44 @@ class StrongWall {
       }
     });
   }
+
+  checkBombCollision() {
+    bombArrObj.forEach((bomb) => {
+      if (
+        bomb.x < this.x + gridCol + this.width &&
+        bomb.x + bomb.width > this.x + gridCol &&
+        bomb.y < this.y + this.height &&
+        bomb.y + bomb.height > this.y
+      ) {
+        isLeftClear = false;
+      }
+
+      if (
+        bomb.x < this.x - gridCol + this.width &&
+        bomb.x + bomb.width > this.x - gridCol &&
+        bomb.y < this.y + this.height &&
+        bomb.y + bomb.height > this.y
+      ) {
+        isRightClear = false;
+      }
+
+      if (
+        bomb.x < this.x + this.width &&
+        bomb.x + bomb.width > this.x &&
+        bomb.y < this.y + gridRow + this.height &&
+        bomb.y + bomb.height > this.y + gridRow
+      ) {
+        isBottomClear = false;
+      }
+
+      if (
+        bomb.x < this.x + this.width &&
+        bomb.x + bomb.width > this.x &&
+        bomb.y < this.y - gridRow + this.height &&
+        bomb.y + bomb.height > this.y - gridRow
+      ) {
+        isTopClear = false;
+      }
+    });
+  }
 }

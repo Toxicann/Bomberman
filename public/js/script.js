@@ -18,6 +18,11 @@ let enemyCount = 0;
 let playerCount = 0;
 let playeri;
 let playerj;
+let explosionObjArr = [];
+let isLeftClear = true;
+let isRightClear = true;
+let isTopClear = true;
+let isBottomClear = true;
 /**
  * It creates a 2D array of strings, where each string is either "wall", "brick", or "empty".
  *
@@ -63,27 +68,6 @@ const createEnv = () => {
     }
     wallArr.push(wallArrRow);
   }
-
-  // for (let i = 0; i < numRows; i++) {
-  //   for (let j = 0; j < numCols; j++) {
-  //     if (wallArr[i][j] === "empty" && playerCount === 0) {
-  //       wallArr[i][j] = "player";
-  //       playerCount++;
-  //       if(wallArr[i-1][j-1] == "brick"){
-  //         wallArr[i-1][j-1] == "empty"
-  //       }
-  //     }
-  //   }
-  // }
-
-  // for (let i = 0; i < numRows; i++) {
-  //   for (let j = 0; j < numCols; j++) {
-  //     if (wallArr[i][j] === "player") {
-  //       wallArr[i][j] = "player";
-  //       playerCount++;
-  //     }
-  //   }
-  // }
 
   console.log(wallArr);
 };
@@ -173,23 +157,39 @@ const draw = () => {
       bomb.explosion(index);
     }, 5000);
   });
+  explosionObjArr.forEach((explosion, index) => {
+    explosion.create();
+    explosion.explosionAnimation(index);
+  });
 };
 
 /**
  * It checks for collisions between the player and the walls, bricks, and door.
  */
 const collision = () => {
-  strWallArrObj.forEach((wall) => {
+  strWallArrObj.forEach((wall, index) => {
     wall.checkCollision();
     wall.checkEnemyCollision();
+    wall.checkBombCollision(index);
   });
-  brickArrObj.forEach((brick) => {
+
+  brickArrObj.forEach((brick, index) => {
     brick.checkCollision();
     brick.checkEnemyCollision();
-  });
-  door.checkDoorCollision();
-  brickArrObj.forEach((brick, index) => {
     brick.checkDestruction(index);
+    brick.checkBombCollision(index);
+    brick.checkExplosionCollision(index);
+  });
+
+  door.checkDoorCollision();
+
+  enemyObjArr.forEach((enemy, index) => {
+    enemy.checkCollision(index);
+  });
+
+  explosionObjArr.forEach((explosion) => {
+    explosion.checkCollision();
+    explosion.checkEnemyCollision();
   });
 };
 

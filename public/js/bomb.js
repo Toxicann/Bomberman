@@ -38,6 +38,9 @@ class Bomb {
     if (!this.isExploded) {
       console.log("Exploooooooooooooooooooooooosion!");
       this.isExploded = true;
+      const explosion = new Explosion(this.x, this.y);
+      explosion.explosionNearby();
+      explosionObjArr.push(explosion);
       delete bombArrObj[index];
       player.bombs_on_field--;
     }

@@ -51,6 +51,86 @@ class Brick {
     });
   }
 
+  checkExplosionCollision(index) {
+    explosionObjArr.forEach((explosion) => {
+      if (
+        explosion.x < this.x + gridCol + this.width * SCALE_FACTOR &&
+        explosion.x + explosion.width > this.x + gridCol &&
+        explosion.y < this.y + this.height * SCALE_FACTOR &&
+        explosion.y + explosion.height > this.y
+      ) {
+        brickArrObj[index].isDestroyed = true;
+      }
+
+      if (
+        explosion.x < this.x - gridCol + this.width * SCALE_FACTOR &&
+        explosion.x + explosion.width > this.x - gridCol &&
+        explosion.y < this.y + this.height * SCALE_FACTOR &&
+        explosion.y + explosion.height > this.y
+      ) {
+        brickArrObj[index].isDestroyed = true;
+      }
+
+      if (
+        explosion.x < this.x + this.width * SCALE_FACTOR &&
+        explosion.x + explosion.width > this.x &&
+        explosion.y < this.y + gridRow + this.height * SCALE_FACTOR &&
+        explosion.y + explosion.height > this.y + gridRow
+      ) {
+        brickArrObj[index].isDestroyed = true;
+      }
+
+      if (
+        explosion.x < this.x + this.width * SCALE_FACTOR &&
+        explosion.x + explosion.width > this.x &&
+        explosion.y < this.y - gridRow + this.height * SCALE_FACTOR &&
+        explosion.y + explosion.height > this.y - gridRow
+      ) {
+        brickArrObj[index].isDestroyed = true;
+      }
+    });
+  }
+
+  checkBombCollision(index) {
+    bombArrObj.forEach((bomb) => {
+      if (
+        bomb.x < this.x + gridCol + this.width * SCALE_FACTOR &&
+        bomb.x + bomb.width > this.x + gridCol &&
+        bomb.y < this.y + this.height * SCALE_FACTOR &&
+        bomb.y + bomb.height > this.y
+      ) {
+        isLeftClear = false;
+      }
+
+      if (
+        bomb.x < this.x - gridCol + this.width * SCALE_FACTOR &&
+        bomb.x + bomb.width > this.x - gridCol &&
+        bomb.y < this.y + this.height * SCALE_FACTOR &&
+        bomb.y + bomb.height > this.y
+      ) {
+        isRightClear = false;
+      }
+
+      if (
+        bomb.x < this.x + this.width * SCALE_FACTOR &&
+        bomb.x + bomb.width > this.x &&
+        bomb.y < this.y + gridRow + this.height * SCALE_FACTOR &&
+        bomb.y + bomb.height > this.y + gridRow
+      ) {
+        isBottomClear = false;
+      }
+
+      if (
+        bomb.x < this.x + this.width * SCALE_FACTOR &&
+        bomb.x + bomb.width > this.x &&
+        bomb.y < this.y - gridRow + this.height * SCALE_FACTOR &&
+        bomb.y + bomb.height > this.y - gridRow
+      ) {
+        isTopClear = false;
+      }
+    });
+  }
+
   checkDestruction(index) {
     if (this.isDestroyed) {
       const brickDestructionAnimation = setInterval(() => {
