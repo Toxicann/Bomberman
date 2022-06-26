@@ -8,13 +8,25 @@
     <title>Bomberman</title>
   </head>
   <body>
-    <!-- <canvas id="game__walls--strong" width="1440px" height="720px"></canvas> -->
+    <div id="home">
+      <div class="title__screen">
+        <h1>BOMBER</h1>
+        <h1>MAN</h1>
+      </div>
+      <div class="menu">
+        <button id="start">New Game</button>
+        <button id="load">Load Level</button>
+        <button id="create">Create Level</button>
+        <button id="highScore" disabled>HighScore: 0</button>
+        <!-- <h3 id="high--score">HighScore : 0</h3> -->
+      </div>
+    </div>
+    <div id="game__info"></div>
     <canvas id="game__window"></canvas>
   </body>
   <script src="./js/imageAssets.js"></script>
-  <!-- <script src="./js/context.js"></script> -->
+  <script src="./js/home.js"></script>
   <script src="./js/constants.js"></script>
-  <script src="./js/utils.js"></script>
   <script src="./js/door.js"></script>
   <script src="./js/strongWall.js"></script>
   <script src="./js/brick.js"></script>
@@ -22,6 +34,8 @@
   <script src="./js/enemy.js"></script>
   <script src="./js/bomb.js"></script>
   <script src="./js/explosion.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/gameSettings.js"></script>
   <script src="./js/script.js"></script>
   <script src="./js/eventHandler.js"></script>
 </html>

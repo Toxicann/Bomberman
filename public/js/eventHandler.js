@@ -45,16 +45,22 @@ addEventListener("keydown", ({ code }) => {
       player.update();
       break;
 
-    //testing
+    case "Space":
+      isLeftClear = true;
+      isRightClear = true;
+      isTopClear = true;
+      isBottomClear = true;
+      plantBomb();
+      break;
+
+    //testing below
     case "KeyL":
       enemy.update();
-      // playerMoves = playerMoveRight;
       collision();
-      // if (player.playerCollision) {
-      //   player.x -= SPEED;
-      //   player.playerCollision = false;
-      // }
-      // player.update();
+      break;
+
+    case "KeyZ":
+      player.checkDeath();
       break;
 
     case "KeyP":
@@ -62,19 +68,9 @@ addEventListener("keydown", ({ code }) => {
         brick.isDestroyed = true;
       });
       break;
-
     //testing above
-    case "Space":
-      isLeftClear = true;
-      isRightClear = true;
-      isTopClear = true;
-      isBottomClear = true;
-      plantBomb();
-
-      break;
-
-    case "KeyZ":
-      player.checkDeath();
-      break;
   }
 });
+
+/* Listening for a click event on the newGame button and then executing the start function. */
+newGame.addEventListener("click", start);

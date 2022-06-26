@@ -1,117 +1,48 @@
 const canvas = document.getElementById("game__window");
 let context = canvas.getContext("2d");
 
+const gameInfo = document.getElementById("game__info");
+
+gameInfo.style.width = toPx(WINDOW_WIDTH - 4);
+gameInfo.style.height = toPx(60);
+
+const timer = document.createElement("h2");
+timer.innerHTML = "Time: ";
+gameInfo.appendChild(timer);
+
+const score = document.createElement("h2");
+score.innerHTML = "Score: 0";
+gameInfo.appendChild(score);
+
+const life = document.createElement("h2");
+life.innerHTML = "Lives: 0";
+gameInfo.appendChild(life);
+
 context.webkitImageSmoothingEnabled = false;
 context.webkitImageSmoothingEnabled = false;
 
 canvas.width = WINDOW_WIDTH;
 canvas.height = WINDOW_HEIGHT;
 
-let playerMoves = playerMoveDown;
-let bomb;
-
-//wall environment matrix creation
-let wallArr = [];
-var randomDoorCounter = 0;
-const maxEnemyCount = 5;
-let enemyCount = 0;
-let playerCount = 0;
-let playeri;
-let playerj;
-let explosionObjArr = [];
-let isLeftClear = true;
-let isRightClear = true;
-let isTopClear = true;
-let isBottomClear = true;
 /**
- * It creates a 2D array of strings, where each string is either "wall", "brick", or "empty".
- *
- * The "wall" strings are the borders of the maze and some inner which are indestructable of maze.
- *
- * The "brick" strings are the randomly generated inner walls which are destructable of maze.
- *
- * The "empty" strings are the spaces in the maze where the player can move.
- *
- * The function also keeps track of the number of "brick" strings in the array.
+ * The run function initializes the game, creates the environment, generates a random door location,
+ * and generates the terrain.
  */
-const createEnv = () => {
-  for (let i = 0; i < numRows; i++) {
-    let wallArrRow = [];
-    for (let j = 0; j < numCols; j++) {
-      // for border strong walls
-      if (i === 0 || i === numRows - 1 || j === 0 || j === numCols - 1) {
-        wallArrRow.push("wall");
-      }
-      //for inner strong walls
-      else if (
-        i !== 1 &&
-        j !== 1 &&
-        i !== numRows - 2 &&
-        j !== numCols - 2 &&
-        i % 2 == 0 &&
-        j % 2 == 0
-      ) {
-        wallArrRow.push("wall");
-      } else if (playerCount === 0) {
-        wallArrRow.push("player");
-        playeri = i;
-        playerj = j;
-        playerCount++;
-      } else if (Math.random() < 0.3 && (i > playeri + 2 || j > playerj + 3)) {
-        wallArrRow.push("brick");
-        randomDoorCounter++;
-      }
-      //for empty spaces
-      else {
-        wallArrRow.push("empty");
-      }
-    }
-    wallArr.push(wallArrRow);
-  }
-
-  console.log(wallArr);
+const run = () => {
+  initializeGame();
+  createEnv();
+  doorLocation = getRndInteger(0, randomDoorCounter);
+  generateTerrain();
 };
 
-createEnv();
-
-//wall object creation
-let strWallArrObj = [];
-let brickArrObj = [];
-let bombArrObj = [];
-let enemyObjArr = [];
-
-let brickCount = 0;
-const doorLocation = getRndInteger(0, randomDoorCounter);
-let animationInterval = 0;
-
-// const enemy = new Enemy(135, 90, 1);
-
-let door;
-for (let i = 0; i < numRows; i++) {
-  for (let j = 0; j < numCols; j++) {
-    if (wallArr[i][j] === "wall") {
-      const wall = new StrongWall(gridCol * j, gridRow * i);
-      strWallArrObj.push(wall);
-    } else if (wallArr[i][j] === "brick") {
-      const brick = new Brick(brickGridCol * j, brickGridRow * i);
-      brickArrObj.push(brick);
-      brickCount++;
-      if (doorLocation == brickCount) {
-        door = new Door(brickGridCol * j, brickGridRow * i);
-      }
-    } else if (wallArr[i][j] === "player") {
-      player = new Player(brickGridCol * j, brickGridRow * i);
-    } else if (wallArr[i][j] === "empty" && enemyCount < maxEnemyCount) {
-      if (Math.random() <= 0.04) {
-        enemy = new Enemy(brickGridCol * j, brickGridRow * i, enemyCount);
-        enemyCount++;
-        enemyObjArr.push(enemy);
-      }
-    }
-
-    // console.log(i, j);
+/**
+ * If the startFlag is true, run the run() function.
+ */
+const checkFlag = () => {
+  if (startFlag) {
+    run();
   }
-}
+};
 
 /**
  * If the player has less than the max number of bombs on the field, create a new bomb object at the
@@ -124,30 +55,32 @@ const plantBomb = () => {
     bomb.isPlanted = true;
     player.bombs_on_field++;
     bombArrObj.push(bomb);
-    console.log("bomb has been planted:");
-    console.log(`${player.x}, ${player.y}`);
-  } else {
-    console.log("max bombs on field reached");
   }
 };
 
 /**
- * It draws the player, door, walls, bricks, and bombs.
+ * It draws the player, door, walls, bricks, enemies, bombs, and explosions.
  */
 const draw = () => {
   context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
+
   player.create();
+
   door.create();
+
   strWallArrObj.forEach((wall) => {
     wall.create();
   });
+
   brickArrObj.forEach((brick) => {
     brick.create();
   });
+
   enemyObjArr.forEach((enemy) => {
     enemy.create();
   });
+
   bombArrObj.forEach((bomb, index) => {
     if (bomb.isPlanted) {
       bomb.create();
@@ -157,6 +90,7 @@ const draw = () => {
       bomb.explosion(index);
     }, 5000);
   });
+
   explosionObjArr.forEach((explosion, index) => {
     explosion.create();
     explosion.explosionAnimation(index);
@@ -164,7 +98,7 @@ const draw = () => {
 };
 
 /**
- * It checks for collisions between the player and the walls, bricks, and door.
+ * Check for collisions between the player and the walls, bricks, door, and enemies.
  */
 const collision = () => {
   strWallArrObj.forEach((wall, index) => {
@@ -185,6 +119,9 @@ const collision = () => {
 
   enemyObjArr.forEach((enemy, index) => {
     enemy.checkCollision(index);
+    if (bombArrObj.length > 0) {
+      enemy.checkBombCollision(index);
+    }
   });
 
   explosionObjArr.forEach((explosion) => {
@@ -193,23 +130,40 @@ const collision = () => {
   });
 };
 
+/* Updating the timer, score, and gameTimer every second. */
+const updateParameters = setInterval(() => {
+  if (start) {
+    if (gameTimer >= 0) {
+      timer.innerHTML = `Time: ${gameTimer}`;
+      score.innerHTML = `Score: ${gameScore}`;
+      gameTimer--;
+    } else {
+      player.isAlive = false;
+    }
+  }
+}, 1000);
+
 /**
- * "The animate function calls the draw function, and then calls itself again."
- *
- * This is what creates the animation.
+ * If the startFlag is true, then if the animationInterval is greater than or equal to 20, then call
+ * the collision function, then for each enemy in the enemyObjArr, call the update function, then set
+ * the animationInterval to 0, otherwise increment the animationInterval, then call the draw function,
+ * then call the animate function.
  */
 const animate = () => {
-  if (animationInterval >= 20) {
-    collision();
-    enemyObjArr.forEach((enemy) => {
-      enemy.update();
-    });
-    animationInterval = 0;
-  } else {
-    animationInterval++;
-  }
+  if (startFlag) {
+    if (animationInterval >= 20) {
+      collision();
 
-  draw();
+      enemyObjArr.forEach((enemy) => {
+        enemy.update();
+      });
+
+      animationInterval = 0;
+    } else {
+      animationInterval++;
+    }
+    draw();
+  }
   requestAnimationFrame(animate);
 };
 

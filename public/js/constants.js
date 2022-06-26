@@ -64,3 +64,5 @@ const ballonSprite = [
 const horizontalExplosion = [1, 19, 37, 55];
 const verticalExplosion = [4, 22, 37, 55];
 const centerExplosion = [1, 19, 37, 55];
+
+const maxEnemyCount = 5;

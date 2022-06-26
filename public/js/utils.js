@@ -4,6 +4,35 @@
  * @param max - The maximum number of the range.
  * @returns a random number between the min and max values.
  */
-function getRndInteger(min, max) {
+const getRndInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
+
+/**
+ * It takes a number and returns a string with the number and the string "px" appended to it.
+ * @param value - The value to convert to pixels.
+ * @returns A string with the value of the argument and the string 'px' appended to it.
+ */
+const toPx = (value) => {
+  return `${value}px`;
+};
+
+/**
+ * It takes an array, filters out all the undefined values, and returns the new array
+ * @param array - the array you want to clean
+ * @returns a new array with all the undefined values removed.
+ */
+const cleanArr = (array) => {
+  return array.filter((enemy) => {
+    return enemy !== undefined;
+  });
+};
+
+/**
+ * It returns true if the array contains undefined, otherwise it returns false.
+ * @param arr - The array to check.
+ * @returns true
+ */
+const containsUndefined = (arr) => {
+  return arr.includes(undefined);
+};

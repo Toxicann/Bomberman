@@ -1,4 +1,10 @@
 class Explosion {
+  /**
+   * The constructor function creates a new explosion object with the given x and y coordinates, and sets
+   * the width, height, spriteState, and animationInterval properties.
+   * @param x - The x coordinate of the explosion.
+   * @param y - The y coordinate of the explosion
+   */
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -8,6 +14,10 @@ class Explosion {
     this.animationInterval = 0;
   }
 
+  /**
+   * Draw the image of the explosion at the x and y coordinates of the explosion, and scale it by the
+   * scale factor.
+   */
   create() {
     context.drawImage(
       centerExplosionImg,
@@ -22,6 +32,12 @@ class Explosion {
     );
   }
 
+  /**
+   * If the animation interval is greater than or equal to 15, then if the sprite state is greater than
+   * or equal to 3, delete the explosion object from the array, otherwise increment the sprite state. If
+   * the animation interval is not greater than or equal to 15, increment the animation interval.
+   * @param index - the index of the explosion object in the explosionObjArr array
+   */
   explosionAnimation(index) {
     if (this.animationInterval >= 15) {
       this.spriteState >= 3

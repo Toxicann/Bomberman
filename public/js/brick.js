@@ -1,4 +1,9 @@
 class Brick {
+  /**
+   * The constructor function is used to create a new brick object.
+   * @param x - the x position of the brick
+   * @param y - the y position of the brick
+   */
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -10,6 +15,10 @@ class Brick {
     this.spriteState = 0;
   }
 
+  /**
+   * "Draw the brick image at the x and y coordinates of the brick object, and scale it to the width and
+   * height of the brick object."
+   */
   create() {
     context.drawImage(
       brickImg,
@@ -24,6 +33,11 @@ class Brick {
     );
   }
 
+  /**
+   *
+   * check collision with player
+   *
+   */
   checkCollision() {
     if (
       player.x < this.x + this.width * SCALE_FACTOR &&
@@ -38,6 +52,9 @@ class Brick {
     }
   }
 
+  /**
+   * collision with enemy
+   */
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {
       if (
@@ -51,6 +68,11 @@ class Brick {
     });
   }
 
+  /**
+   * If the explosion's x and y coordinates are within the brick's x and y coordinates, then the brick
+   * is destroyed.
+   * @param index - the index of the brick in the brickArrObj array
+   */
   checkExplosionCollision(index) {
     explosionObjArr.forEach((explosion) => {
       if (
@@ -91,6 +113,10 @@ class Brick {
     });
   }
 
+  /**
+   * Check if the player is colliding with a bomb in any direction.
+   * @param index - the index of the player in the playerArrObj array
+   */
   checkBombCollision(index) {
     bombArrObj.forEach((bomb) => {
       if (
@@ -131,6 +157,11 @@ class Brick {
     });
   }
 
+  /**
+   * If the brick is destroyed, then increment the spriteState every 250ms until the spriteState is
+   * greater than 6, then clear the interval and delete the brick from the brickArrObj.
+   * @param index - the index of the brick in the brickArrObj array
+   */
   checkDestruction(index) {
     if (this.isDestroyed) {
       const brickDestructionAnimation = setInterval(() => {
