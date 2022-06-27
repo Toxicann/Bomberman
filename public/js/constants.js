@@ -1,3 +1,25 @@
+const wallTile = document.getElementById("wallTile");
+const brickTile = document.getElementById("brickTile");
+const doorTile = document.getElementById("doorTile");
+const playerEntity = document.getElementById("playerEntity");
+const enemyEnitity = document.getElementById("enemyEntity");
+
+const clearMap = document.getElementById("clear");
+const saveMap = document.getElementById("save");
+
+const levelInput = document.getElementById("level--input");
+
+const remove = document.getElementById("deleteTile");
+
+const life = document.createElement("h2");
+const score = document.createElement("h2");
+const timer = document.createElement("h2");
+
+const levelEditor = document.getElementById("level__editor");
+
+const gameInfo = document.getElementById("game__info");
+const canvas = document.getElementById("game__window");
+
 const WINDOW_WIDTH = 1485;
 const WINDOW_HEIGHT = 765;
 

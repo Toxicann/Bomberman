@@ -16,4 +16,6 @@ const start = () => {
   gameInfo.style.display = "flex";
   startFlag = true;
   checkFlag();
+  playerDeathInterval();
+  animate();
 };

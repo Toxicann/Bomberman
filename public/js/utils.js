@@ -36,3 +36,16 @@ const cleanArr = (array) => {
 const containsUndefined = (arr) => {
   return arr.includes(undefined);
 };
+
+/**
+ * Get the coordinates of the mouse click relative to the canvas element.
+ * @param event - The event object that is passed to the event handler.
+ * @returns An array of two numbers.
+ */
+const getCoordinates = (e) => {
+  const { x, y } = e.target.getBoundingClientRect();
+  console.log(x, y);
+  const mouseX = e.clientX - x;
+  const mouseY = e.clientY - y;
+  return [Math.floor(mouseX / gridCol), Math.floor(mouseY / gridRow)];
+};

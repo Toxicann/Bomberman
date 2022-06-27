@@ -49,6 +49,10 @@ class Explosion {
     }
   }
 
+  /**
+   * If the left, right, top, or bottom of the bomb is clear, then create an explosion object at that
+   * location
+   */
   explosionNearby() {
     if (isLeftClear) {
       const explosion = new Explosion(this.x - gridCol, this.y);
@@ -68,6 +72,9 @@ class Explosion {
     }
   }
 
+  /**
+   * Check Collision with player
+   */
   checkCollision() {
     if (
       player.x < this.x + this.width * SCALE_FACTOR &&
@@ -79,6 +86,10 @@ class Explosion {
     }
   }
 
+  /**
+   * If the player's x and y coordinates are within the enemy's x and y coordinates, then the enemy is
+   * dead
+   */
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {
       if (

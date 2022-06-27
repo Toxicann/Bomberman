@@ -1,20 +1,17 @@
-const canvas = document.getElementById("game__window");
 let context = canvas.getContext("2d");
-
-const gameInfo = document.getElementById("game__info");
 
 gameInfo.style.width = toPx(WINDOW_WIDTH - 4);
 gameInfo.style.height = toPx(60);
 
-const timer = document.createElement("h2");
+levelEditor.style.width = toPx(WINDOW_WIDTH - 4);
+levelEditor.style.height = toPx(60);
+
 timer.innerHTML = "Time: ";
 gameInfo.appendChild(timer);
 
-const score = document.createElement("h2");
 score.innerHTML = "Score: 0";
 gameInfo.appendChild(score);
 
-const life = document.createElement("h2");
 life.innerHTML = "Lives: 0";
 gameInfo.appendChild(life);
 
@@ -65,9 +62,9 @@ const draw = () => {
   context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  player.create();
+  if (playerCount > 0) player.create();
 
-  door.create();
+  if (doorCount > 0) door.create();
 
   strWallArrObj.forEach((wall) => {
     wall.create();
@@ -131,8 +128,9 @@ const collision = () => {
 };
 
 /* Updating the timer, score, and gameTimer every second. */
+
 const updateParameters = setInterval(() => {
-  if (start) {
+  if (startFlag) {
     if (gameTimer >= 0) {
       timer.innerHTML = `Time: ${gameTimer}`;
       score.innerHTML = `Score: ${gameScore}`;
@@ -142,6 +140,25 @@ const updateParameters = setInterval(() => {
     }
   }
 }, 1000);
+
+/**
+ * If the player is dead, check if they're dead, clear the interval, and after 3 seconds, display the
+ * home screen.
+ */
+const playerDeathInterval = () => {
+  const playerUpdates = setInterval(() => {
+    if (!player.isAlive) {
+      player.checkDeath();
+      clearInterval(playerUpdates);
+      setTimeout(() => {
+        homeScreen.style.display = "flex";
+        canvas.style.display = "none";
+        gameInfo.style.display = "none";
+        startFlag = false;
+      }, 3000);
+    }
+  }, 1000);
+};
 
 /**
  * If the startFlag is true, then if the animationInterval is greater than or equal to 20, then call
@@ -162,9 +179,9 @@ const animate = () => {
     } else {
       animationInterval++;
     }
-    draw();
   }
+  draw();
   requestAnimationFrame(animate);
 };
 
-animate();
+// animate();

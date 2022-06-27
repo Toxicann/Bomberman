@@ -22,11 +22,28 @@
       </div>
     </div>
     <div id="game__info"></div>
+    <div id="level__editor">
+      <h2>Level Editor</h2>
+      <div id="btn--grp">
+        <button class="btn" id="wallTile">wall</button>
+        <button class="btn" id="brickTile">brick</button>
+        <button class="btn" id="doorTile">door</button>
+        <button class="btn" id="playerEntity">player</button>
+        <button class="btn" id="enemyEntity">enemy</button>
+        <button class="btn" id="deleteTile">delete</button>
+      </div>
+      <div class="saveSettings">
+        <button class="btn" id="save">save</button>
+        <button class="btn" id="clear">clear</button>
+        <input id="level--input" class="input-title" type="text" />
+      </div>
+    </div>
     <canvas id="game__window"></canvas>
   </body>
   <script src="./js/imageAssets.js"></script>
-  <script src="./js/home.js"></script>
   <script src="./js/constants.js"></script>
+  <script src="./js/home.js"></script>
+  <script src="./js/create.js"></script>
   <script src="./js/door.js"></script>
   <script src="./js/strongWall.js"></script>
   <script src="./js/brick.js"></script>

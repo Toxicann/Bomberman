@@ -102,7 +102,6 @@ class Enemy {
     ) {
       player.isAlive = false;
       player.speed = 0;
-      player.checkDeath();
     }
   }
 

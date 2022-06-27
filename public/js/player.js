@@ -62,6 +62,10 @@ class Player {
     }
   }
 
+  /**
+   * If the player is dead, set the player's position to 0, set the player's sprite to 1, set the
+   * current sprite source to the player death sprite, and then animate the player's death.
+   */
   checkDeath() {
     if (!this.isAlive) {
       this.playerPos = 0;

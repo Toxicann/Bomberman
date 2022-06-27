@@ -3,12 +3,14 @@ let playerMoves = playerMoveDown;
 let randomDoorCounter;
 let enemyCount;
 let playerCount;
+let doorCount;
 let brickCount;
 let animationInterval;
 let gameTimer;
 let gameScore;
 
 let bomb;
+let player;
 let door;
 let playeri;
 let playerj;
@@ -34,6 +36,7 @@ const initializeGame = () => {
   enemyCount = 0;
   playerCount = 0;
   brickCount = 0;
+  doorCount = 0;
   animationInterval = 0;
   gameTimer = 200;
   gameScore = 0;
@@ -120,6 +123,7 @@ const generateTerrain = () => {
         //generate door on brick
         if (doorLocation == brickCount) {
           door = new Door(brickGridCol * j, brickGridRow * i);
+          doorCount++;
         }
       }
 
