@@ -1,0 +1,38 @@
+#home > .menu > button {
+  margin-top: 2vh;
+  color: whitesmoke;
+  font-family: "BitBold";
+  font-size: 18px;
+  background: none;
+  padding: 10px 12px;
+  width: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+#home > .menu > button:not(:last-child):hover {
+  color: goldenrod;
+}
+
+.btn {
+  background: darkcyan;
+  font-family: "Bitbold";
+  font-size: 10px;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px rgba(150, 150, 150, 1);
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.btn:hover {
+  background: crimson;
+}
+
+.active {
+  background: crimson;
+  border: 1px solid goldenrod;
+}

@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/button.css" />
+    <link rel="stylesheet" href="./css/font.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <title>Bomberman</title>
   </head>
@@ -18,25 +21,33 @@
         <button id="load">Load Level</button>
         <button id="create">Create Level</button>
         <button id="highScore" disabled>HighScore: 0</button>
-        <!-- <h3 id="high--score">HighScore : 0</h3> -->
       </div>
     </div>
     <div id="game__info"></div>
     <div id="level__editor">
       <h2>Level Editor</h2>
       <div id="btn--grp">
-        <button class="btn" id="wallTile">wall</button>
+        <button class="btn active" id="wallTile">wall</button>
         <button class="btn" id="brickTile">brick</button>
         <button class="btn" id="doorTile">door</button>
         <button class="btn" id="playerEntity">player</button>
         <button class="btn" id="enemyEntity">enemy</button>
-        <button class="btn" id="deleteTile">delete</button>
       </div>
-      <div class="saveSettings">
+      <div class="save--settings">
+        <input
+          id="level--input"
+          class="input-title"
+          type="text"
+          placeholder="Level Name"
+        />
         <button class="btn" id="save">save</button>
         <button class="btn" id="clear">clear</button>
-        <input id="level--input" class="input-title" type="text" />
+        <button class="btn" id="deleteTile">delete</button>
+        <button class="btn" id="exit">exit</button>
       </div>
+    </div>
+    <div id="load--levels">
+      <div class="level__item"></div>
     </div>
     <canvas id="game__window"></canvas>
   </body>
@@ -44,6 +55,7 @@
   <script src="./js/constants.js"></script>
   <script src="./js/home.js"></script>
   <script src="./js/create.js"></script>
+  <script src="./js/load.js"></script>
   <script src="./js/door.js"></script>
   <script src="./js/strongWall.js"></script>
   <script src="./js/brick.js"></script>

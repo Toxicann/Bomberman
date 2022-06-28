@@ -4,18 +4,22 @@ const doorTile = document.getElementById("doorTile");
 const playerEntity = document.getElementById("playerEntity");
 const enemyEnitity = document.getElementById("enemyEntity");
 
+const btnGroup = document.getElementById("btn--grp");
+const saveSettings = document.getElementById("save--settings");
+
 const clearMap = document.getElementById("clear");
 const saveMap = document.getElementById("save");
+const exit = document.getElementById("exit");
+const remove = document.getElementById("deleteTile");
 
 const levelInput = document.getElementById("level--input");
-
-const remove = document.getElementById("deleteTile");
 
 const life = document.createElement("h2");
 const score = document.createElement("h2");
 const timer = document.createElement("h2");
 
 const levelEditor = document.getElementById("level__editor");
+const levelLoader = document.getElementById("load--levels");
 
 const gameInfo = document.getElementById("game__info");
 const canvas = document.getElementById("game__window");
@@ -88,3 +92,5 @@ const verticalExplosion = [4, 22, 37, 55];
 const centerExplosion = [1, 19, 37, 55];
 
 const maxEnemyCount = 5;
+
+const url = "https://Bomberman-Backend.toxicann.repl.co";

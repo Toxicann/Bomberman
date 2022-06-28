@@ -52,6 +52,8 @@ const initializeGame = () => {
   brickArrObj = [];
   bombArrObj = [];
   enemyObjArr = [];
+  player = undefined;
+  door = undefined;
 };
 
 /**

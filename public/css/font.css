@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "BitBold";
+  src: url("../assets/fonts/BitBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Bomberman";
+  src: url("../assets/fonts/Bomberman.ttf") format("truetype");
+}

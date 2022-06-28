@@ -72,18 +72,20 @@ addEventListener("keydown", ({ code }) => {
   }
 });
 
-/* Listening for a click event on the newGame button and then executing the start function. */
+//buttons Event Listeners below
 newGame.addEventListener("click", start);
 
 createGame.addEventListener("click", create);
 
-/* Listening for a click event on the canvas and then executing the code inside the arrow function. */
+loadGame.addEventListener("click", load);
+
 canvas.addEventListener("click", (event) => {
   createTiles(event);
 });
 
 remove.addEventListener("click", (event) => {
   deleteTile(event);
+  toggleDelete();
 });
 
 wallTile.addEventListener("click", (event) => {
@@ -112,4 +114,8 @@ clearMap.addEventListener("click", () => {
 
 saveMap.addEventListener("click", () => {
   saveMapEntities();
+});
+
+exit.addEventListener("click", () => {
+  goHome();
 });

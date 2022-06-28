@@ -49,3 +49,61 @@ const getCoordinates = (e) => {
   const mouseY = e.clientY - y;
   return [Math.floor(mouseX / gridCol), Math.floor(mouseY / gridRow)];
 };
+
+/**
+ * It takes a JSON object and a method (GET, POST, PUT, DELETE) and returns an object with the method,
+ * headers, and body.
+ * @param jsonBody - The JSON object that you want to send to the server.
+ * @param method - The HTTP method to use.
+ * @returns An object with the method, headers, and body.
+ */
+const options = (jsonBody, method) => {
+  return {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(jsonBody),
+  };
+};
+
+/* Adding an event listener to each button in the button group. */
+var btns = btnGroup.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function () {
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+/**
+ * When the delete button is clicked, toggle the active class on the delete button.
+ */
+const toggleDelete = () => {
+  remove.classList.toggle("active");
+};
+
+/**
+ * It removes dead enemies from the enemyObjArr array.
+ */
+const removeDeadEnemies = () => {
+  for (let i = 0; i < enemyObjArr.length; i++) {
+    console.log(enemyObjArr);
+    if (!enemyObjArr[i].isAlive) {
+      enemyObjArr.splice(i, 1);
+    }
+  }
+};
+
+/**
+ * It removes objects from an array if they are destroyed.
+ * @param arr - The array you want to remove objects from
+ */
+const removeObjects = (arr) => {
+  for (let i = o; i < arr.length; i++) {
+    if (arr.isDestroyed) {
+      arr(i, 1);
+    }
+  }
+};

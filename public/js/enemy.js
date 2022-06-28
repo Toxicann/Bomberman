@@ -53,7 +53,11 @@ class Enemy {
       this.width = 12;
       this.height = 12;
       this.enemySprite = 2;
-      this.enemyPos >= 2 ? delete enemyObjArr[this.id] : this.enemyPos++;
+      if (this.enemyPos >= 2) {
+        removeDeadEnemies();
+      } else {
+        this.enemyPos++;
+      }
     }, 3000);
   }
 
@@ -120,3 +124,21 @@ class Enemy {
     }
   }
 }
+
+//remove dead enemies from the array
+const removeDeadEnemies = () => {
+  for (let i = 0; i < enemyObjArr.length; i++) {
+    console.log(enemyObjArr);
+    if (!enemyObjArr[i].isAlive) {
+      enemyObjArr.splice(i, 1);
+    }
+  }
+};
+
+const removeObjects = (arr) => {
+  for (let i = o; i < arr.length; i++) {
+    if (arr.isDestroyed) {
+      arr(i, 1);
+    }
+  }
+};
