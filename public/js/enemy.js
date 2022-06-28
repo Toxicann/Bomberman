@@ -124,27 +124,3 @@ class Enemy {
     }
   }
 }
-
-/**
- * It removes dead enemies from the enemyObjArr array.
- */
-const removeDeadEnemies = () => {
-  for (let i = 0; i < enemyObjArr.length; i++) {
-    console.log(enemyObjArr);
-    if (!enemyObjArr[i].isAlive) {
-      enemyObjArr.splice(i, 1);
-    }
-  }
-};
-
-/**
- * It removes objects from an array if they are destroyed.
- * @param arr - The array you want to remove objects from
- */
-const removeObjects = (arr) => {
-  for (let i = o; i < arr.length; i++) {
-    if (arr.isDestroyed) {
-      arr(i, 1);
-    }
-  }
-};

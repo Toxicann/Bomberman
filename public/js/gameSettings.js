@@ -7,7 +7,10 @@ let doorCount;
 let brickCount;
 let animationInterval;
 let gameTimer;
-let gameScore;
+let gameScore = 0;
+let levelCompleted;
+let maxEnemyCount = 5;
+let highScore;
 
 let bomb;
 let player;
@@ -27,11 +30,14 @@ let strWallArrObj;
 let brickArrObj;
 let bombArrObj;
 let enemyObjArr;
+let levelArr;
 
 /**
  * InitializeGame() is a function that resets all the variables to their original values.
  */
 const initializeGame = () => {
+  highScore = 0;
+  levelCompleted = false;
   randomDoorCounter = 0;
   enemyCount = 0;
   playerCount = 0;
@@ -39,7 +45,6 @@ const initializeGame = () => {
   doorCount = 0;
   animationInterval = 0;
   gameTimer = 200;
-  gameScore = 0;
 
   isLeftClear = true;
   isRightClear = true;

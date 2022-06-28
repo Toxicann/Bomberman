@@ -41,7 +41,7 @@ class Explosion {
   explosionAnimation(index) {
     if (this.animationInterval >= 15) {
       this.spriteState >= 3
-        ? delete explosionObjArr[index]
+        ? removeObjects(explosionObjArr, index)
         : this.spriteState++;
       this.animationInterval = 0;
     } else {

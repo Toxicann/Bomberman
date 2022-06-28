@@ -66,8 +66,13 @@ const loadLevel = (levelName) => {
 
       console.log(player);
 
-      player = new Player(playerData.x, playerData.y);
-      playerCount++;
+      if (playerData != undefined) {
+        player = new Player(playerData.x, playerData.y);
+        playerCount++;
+      } else {
+        player = new Player(1 * gridCol, 1 * gridRow);
+        playerCount++;
+      }
 
       enemyObjArr = enemyObjArrData.map((enemy) => {
         return new Enemy(enemy.x, enemy.y);
@@ -79,8 +84,13 @@ const loadLevel = (levelName) => {
       brickArrObj = brickArrObjData.map((brick) => {
         return new Brick(brick.x, brick.y);
       });
-      door = new Door(doorData.x, doorData.y);
-      doorCount++;
+      if (doorData != undefined) {
+        door = new Door(doorData.x, doorData.y);
+        doorCount++;
+      } else {
+        door = new Door(30 * gridCol, 10 * gridRow);
+        doorCount++;
+      }
 
       levelLoader.style.display = "none";
       canvas.style.display = "block";

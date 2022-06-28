@@ -168,7 +168,7 @@ class Brick {
         this.spriteState++;
         if (this.spriteState > 6) {
           clearInterval(brickDestructionAnimation);
-          delete brickArrObj[index];
+          removeBricks(brickArrObj, index);
         }
       }, 250);
     }

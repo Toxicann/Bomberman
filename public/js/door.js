@@ -32,12 +32,8 @@ class Door {
       player.y + player.height * PLAYER_SCALE_FACTOR > this.y
     ) {
       this.playerDetected = true;
-      if (containsUndefined(enemyObjArr)) {
-        enemyObjArr = cleanArr(enemyObjArr);
-      }
       if (enemyObjArr.length == 0) {
-        gameScore += 500;
-        // alert("you win");
+        levelCompleted = true;
       }
     } else {
       this.playerDetected = false;

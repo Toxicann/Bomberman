@@ -83,3 +83,34 @@ for (var i = 0; i < btns.length; i++) {
 const toggleDelete = () => {
   remove.classList.toggle("active");
 };
+
+/**
+ * It removes dead enemies from the enemyObjArr array.
+ */
+const removeDeadEnemies = () => {
+  for (let i = 0; i < enemyObjArr.length; i++) {
+    console.log(enemyObjArr);
+    if (!enemyObjArr[i].isAlive) {
+      enemyObjArr.splice(i, 1);
+    }
+  }
+};
+
+/**
+ * It removes objects from an array if they are destroyed.
+ * @param arr - The array you want to remove objects from
+ */
+const removeObjects = (arr, index) => {
+  arr.splice(index, 1);
+};
+
+/**
+ * If the brick at the given index is destroyed, remove it from the array.
+ * @param arr - the array of bricks
+ * @param index - the index of the brick in the array
+ */
+const removeBricks = (arr, index) => {
+  if (arr[index].isDestroyed) {
+    arr.splice(index, 1);
+  }
+};

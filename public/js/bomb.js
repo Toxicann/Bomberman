@@ -61,7 +61,7 @@ class Bomb {
       const explosion = new Explosion(this.x, this.y);
       explosion.explosionNearby();
       explosionObjArr.push(explosion);
-      delete bombArrObj[index];
+      removeObjects(bombArrObj, index);
       player.bombs_on_field--;
     }
   }

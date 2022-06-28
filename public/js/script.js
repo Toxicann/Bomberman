@@ -154,6 +154,9 @@ const playerDeathInterval = () => {
       player.checkDeath();
       clearInterval(playerUpdates);
       setTimeout(() => {
+        if (highScore < gameScore) {
+          highScore = gameScore;
+        }
         homeScreen.style.display = "flex";
         canvas.style.display = "none";
         gameInfo.style.display = "none";
@@ -184,7 +187,24 @@ const animate = () => {
     }
   }
   draw();
+  nextLevel();
   requestAnimationFrame(animate);
+};
+
+/**
+ * regenerate the randomized environment for next level keeping current score intact
+ */
+const nextLevel = () => {
+  if (levelCompleted) {
+    levelCompleted = false;
+    maxEnemyCount++;
+    gameScore += 1000;
+    startFlag = true;
+    checkFlag();
+    playerDeathInterval();
+    animate();
+    run();
+  }
 };
 
 // animate();
