@@ -3,7 +3,8 @@
  * for each level.
  */
 const load = () => {
-  console.log("ree");
+  titleScreen.pause();
+  titleScreen.currentTime = 0;
   homeScreen.style.display = "none";
   levelLoader.style.display = "flex";
 

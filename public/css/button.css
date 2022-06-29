@@ -7,6 +7,9 @@
   padding: 10px 12px;
   width: 50%;
   border: none;
+}
+
+#home > .menu > button:not(:last-child) {
   cursor: pointer;
 }
 

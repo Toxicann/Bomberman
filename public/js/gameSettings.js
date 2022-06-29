@@ -36,7 +36,8 @@ let levelArr;
  * InitializeGame() is a function that resets all the variables to their original values.
  */
 const initializeGame = () => {
-  highScore = 0;
+  getHighScore();
+  startFlag = true;
   levelCompleted = false;
   randomDoorCounter = 0;
   enemyCount = 0;

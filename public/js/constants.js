@@ -24,6 +24,8 @@ const levelLoader = document.getElementById("load--levels");
 const gameInfo = document.getElementById("game__info");
 const canvas = document.getElementById("game__window");
 
+const HIGHSCORE = document.getElementById("highscore");
+
 const WINDOW_WIDTH = 1485;
 const WINDOW_HEIGHT = 765;
 
@@ -77,6 +79,19 @@ const bombSprite = [2, 20, 37];
 const ballonMoveLeft = [0, 18, 33];
 const ballonMoveRight = [65, 80, 96];
 const BallonDeath = [49, 49, 49];
+
+const cookieMoveLeft = [1, 18, 35];
+const cookieMoveRight = [69, 86, 103];
+const cookieDeath = [52, 52, 52];
+
+const barrelMoveLeft = [1, 20, 38];
+const barrelMoveRight = [74, 92, 109];
+const barrelDeath = [56, 56, 56];
+
+const ghostMoveLeft = [0, 17, 33];
+const ghostMoveRight = [65, 81, 97];
+const ghostDeath = [49, 49, 49];
+
 const enemyDeathSprite = [1, 17, 32];
 
 const ballonImgSprite = [ballonImg, enemyDeathImg];
@@ -85,6 +100,30 @@ const ballonSprite = [
   ballonMoveRight,
   enemyDeathSprite,
   BallonDeath,
+];
+
+const cookieImgSprite = [cookieImg, enemyDeathImg];
+const cookieSprite = [
+  cookieMoveLeft,
+  cookieMoveRight,
+  enemyDeathSprite,
+  cookieDeath,
+];
+
+const barrelImgSprite = [barrelImg, enemyDeathImg];
+const barrelSprite = [
+  barrelMoveLeft,
+  barrelMoveRight,
+  enemyDeathSprite,
+  barrelDeath,
+];
+
+const ghostImgSprite = [ghostImg, enemyDeathImg];
+const ghostSprite = [
+  ghostMoveLeft,
+  ghostMoveRight,
+  enemyDeathSprite,
+  ghostDeath,
 ];
 
 const horizontalExplosion = [1, 19, 37, 55];

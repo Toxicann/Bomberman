@@ -29,10 +29,30 @@ canvas.height = WINDOW_HEIGHT;
  * and generates the terrain.
  */
 const run = () => {
+  levelStart.play();
+  setTimeout(() => {
+    stageTheme.play();
+  }, 3000);
   initializeGame();
   createEnv();
   doorLocation = getRndInteger(0, randomDoorCounter);
   generateTerrain();
+
+  const findDoorSound = setInterval(() => {
+    if (enemyObjArr.length == 0) {
+      stageTheme.pause();
+      stageTheme.currentTime = 0;
+      findDoor.play();
+      clearInterval(findDoorSound);
+    }
+  }, 1000);
+
+  const lastEnemySound = setInterval(() => {
+    if (enemyObjArr.length == 1) {
+      lastEnemy.play();
+      clearInterval(lastEnemySound);
+    }
+  });
 };
 
 /**
@@ -52,6 +72,7 @@ const plantBomb = () => {
   console.log(player.bombs_on_field, player.max_bombs_on_field);
   if (player.bombs_on_field < player.max_bombs_on_field) {
     bomb = new Bomb(player.x, player.y);
+    putBomb.play();
     bomb.isPlanted = true;
     player.bombs_on_field++;
     bombArrObj.push(bomb);
@@ -102,30 +123,42 @@ const draw = () => {
  */
 const collision = () => {
   strWallArrObj.forEach((wall, index) => {
-    wall.checkCollision();
+    if (player != undefined) {
+      wall.checkCollision();
+    }
     wall.checkEnemyCollision();
     wall.checkBombCollision(index);
   });
 
   brickArrObj.forEach((brick, index) => {
-    brick.checkCollision();
+    if (player != undefined) {
+      brick.checkCollision();
+    }
     brick.checkEnemyCollision();
     brick.checkDestruction(index);
     brick.checkBombCollision(index);
     brick.checkExplosionCollision(index);
   });
 
-  door.checkDoorCollision();
+  if (door != undefined) {
+    door.checkDoorCollision();
+  }
 
   enemyObjArr.forEach((enemy, index) => {
-    enemy.checkCollision(index);
+    if (player != undefined) {
+      enemy.checkCollision(index);
+    }
+
     if (bombArrObj.length > 0) {
       enemy.checkBombCollision(index);
     }
   });
 
   explosionObjArr.forEach((explosion) => {
-    explosion.checkCollision();
+    if (player != undefined) {
+      explosion.checkCollision();
+    }
+
     explosion.checkEnemyCollision();
   });
 };
@@ -134,7 +167,7 @@ const collision = () => {
 
 const updateParameters = setInterval(() => {
   if (startFlag) {
-    if (gameTimer >= 0) {
+    if (gameTimer >= 0 && player.isAlive) {
       timer.innerHTML = `Time: ${gameTimer}`;
       score.innerHTML = `Score: ${gameScore}`;
       gameTimer--;
@@ -151,17 +184,24 @@ const updateParameters = setInterval(() => {
 const playerDeathInterval = () => {
   const playerUpdates = setInterval(() => {
     if (!player.isAlive) {
+      stageTheme.pause();
+      findDoor.pause();
+      stageTheme.currentTime = 0;
+      findDoor.currentTime = 0;
       player.checkDeath();
+      gameOver.play();
       clearInterval(playerUpdates);
       setTimeout(() => {
         if (highScore < gameScore) {
           highScore = gameScore;
+          setHighScore(highScore);
         }
+        titleScreen.play();
         homeScreen.style.display = "flex";
         canvas.style.display = "none";
         gameInfo.style.display = "none";
         startFlag = false;
-      }, 3000);
+      }, 6500);
     }
   }, 1000);
 };
@@ -175,11 +215,12 @@ const playerDeathInterval = () => {
 const animate = () => {
   if (startFlag) {
     if (animationInterval >= 20) {
-      collision();
-
-      enemyObjArr.forEach((enemy) => {
-        enemy.update();
-      });
+      if (!isLevelEditor) {
+        collision();
+        enemyObjArr.forEach((enemy) => {
+          enemy.update();
+        });
+      }
 
       animationInterval = 0;
     } else {
@@ -197,6 +238,10 @@ const animate = () => {
 const nextLevel = () => {
   if (levelCompleted) {
     levelCompleted = false;
+    stageTheme.pause();
+    stageTheme.currentTime = 0;
+    findDoor.pause();
+    findDoor.currentTime = 0;
     maxEnemyCount++;
     gameScore += 1000;
     startFlag = true;

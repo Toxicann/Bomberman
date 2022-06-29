@@ -17,7 +17,7 @@ class Player {
     this.id = "p1";
     this.isAlive = true;
     this.bombs_on_field = 0;
-    this.max_bombs_on_field = 1;
+    this.max_bombs_on_field = 2;
     this.speed = SPEED;
     this.currentSpriteSrc = playerMoveDown;
     this.spriteSrc = { x: this.currentSpriteSrc, y: 1 };
@@ -68,6 +68,7 @@ class Player {
    */
   checkDeath() {
     if (!this.isAlive) {
+      playerLost.play();
       this.playerPos = 0;
       this.playerSprite = 1;
       this.currentSpriteSrc = playerDeathSprite;

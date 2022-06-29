@@ -4,6 +4,7 @@ addEventListener("keydown", ({ code }) => {
     case "KeyD":
       player.x += player.speed;
       playerMoves = playerMoveRight;
+      WALK.play();
       collision();
       if (player.playerCollision) {
         player.x -= SPEED;
@@ -15,6 +16,7 @@ addEventListener("keydown", ({ code }) => {
     case "KeyA":
       player.x -= player.speed;
       playerMoves = playerMoveLeft;
+      WALK.play();
       collision();
       if (player.playerCollision) {
         player.x += SPEED;
@@ -26,6 +28,7 @@ addEventListener("keydown", ({ code }) => {
     case "KeyW":
       player.y -= player.speed;
       playerMoves = playerMoveUp;
+      WALK.play();
       collision();
       if (player.playerCollision) {
         player.y += SPEED;
@@ -37,6 +40,7 @@ addEventListener("keydown", ({ code }) => {
     case "KeyS":
       player.y += player.speed;
       playerMoves = playerMoveDown;
+      WALK.play();
       collision();
       if (player.playerCollision) {
         player.y -= SPEED;
@@ -66,6 +70,12 @@ addEventListener("keydown", ({ code }) => {
     case "KeyP":
       brickArrObj.forEach((brick) => {
         brick.isDestroyed = true;
+      });
+      break;
+
+    case "KeyO":
+      enemyObjArr.forEach((enemy) => {
+        enemy.isAlive = false;
       });
       break;
     //testing above

@@ -49,10 +49,10 @@ class Bomb {
   }
 
   /**
-   * set the bomb flag to exploded, create a new explosion object, call
-   * the explosionNearby function on the explosion object, push the explosion object to the
-   * explosionObjArr array, delete the bomb object from the bombArrObj array, and decrement the
-   * player's bombs_on_field property.
+   * If the bomb is not exploded, then set the bomb to exploded, create a new explosion object, call the
+   * explosionNearby function on the new explosion object, push the new explosion object to the
+   * explosionObjArr array, remove the bomb from the bombArrObj array, and decrement the player's
+   * bombs_on_field property.
    * @param index - the index of the bomb in the bombArrObj array
    */
   explosion(index) {
@@ -61,8 +61,11 @@ class Bomb {
       const explosion = new Explosion(this.x, this.y);
       explosion.explosionNearby();
       explosionObjArr.push(explosion);
-      removeObjects(bombArrObj, index);
+      explode.pause();
+      explode.currentTime = 0;
+      explode.play();
       player.bombs_on_field--;
     }
+    removeBombs(bombArrObj, index);
   }
 }

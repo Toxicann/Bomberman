@@ -44,7 +44,7 @@ const containsUndefined = (arr) => {
  */
 const getCoordinates = (e) => {
   const { x, y } = e.target.getBoundingClientRect();
-  console.log(x, y);
+  console.log(x, y, e);
   const mouseX = e.clientX - x;
   const mouseY = e.clientY - y;
   return [Math.floor(mouseX / gridCol), Math.floor(mouseY / gridRow)];
@@ -89,7 +89,6 @@ const toggleDelete = () => {
  */
 const removeDeadEnemies = () => {
   for (let i = 0; i < enemyObjArr.length; i++) {
-    console.log(enemyObjArr);
     if (!enemyObjArr[i].isAlive) {
       enemyObjArr.splice(i, 1);
     }
@@ -113,4 +112,41 @@ const removeBricks = (arr, index) => {
   if (arr[index].isDestroyed) {
     arr.splice(index, 1);
   }
+};
+
+const removeBombs = (arr, index) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[index].isExploded) {
+      arr.splice(index, 1);
+    }
+  }
+};
+
+/**
+ * It takes a high score, and sends it to the server to be saved
+ * @param highScore - the score that the user got
+ */
+const setHighScore = (highScore) => {
+  fetch(`${url}/save_highscore`, options({ Highscore: highScore }, "POST"))
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+};
+
+//
+/**
+ * It fetches the highscore from the database and then sets the highscore to the value that was
+ * fetched.
+ */
+const getHighScore = () => {
+  fetch(`${url}/load_highscore`).then((res) => {
+    res.json().then((data) => {
+      highScore = data[0].Highscore;
+
+      setTimeout(() => {
+        HIGHSCORE.innerText = `Highscore: ${highScore}`;
+      }, 1000);
+    });
+  });
 };

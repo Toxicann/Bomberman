@@ -16,6 +16,8 @@ let isEnemySelected;
  * true, initializes the game, and starts the animation
  */
 const create = () => {
+  titleScreen.pause();
+  titleScreen.currentTime = 0;
   homeScreen.style.display = "none";
   canvas.style.display = "flex";
   levelEditor.style.display = "flex";
@@ -173,15 +175,15 @@ const placeTile = (arr) => {
   } else if (isBrickSelected) {
     brick = new Brick(gridCol * arr[0], gridRow * arr[1]);
     brickArrObj.push(brick);
-  } else if (isDoorSelected && doorCount == 0) {
-    door = new Door(gridCol * arr[0], gridRow * arr[1]);
-    doorCount++;
   } else if (isPlayerSelected && playerCount == 0) {
     player = new Player(gridCol * arr[0], gridRow * arr[1]);
     playerCount++;
   } else if (isEnemySelected) {
     enemy = new Enemy(gridCol * arr[0], gridRow * arr[1]);
     enemyObjArr.push(enemy);
+  } else if (isDoorSelected && doorCount == 0) {
+    door = new Door(gridCol * arr[0], gridRow * arr[1]);
+    doorCount++;
   }
 };
 

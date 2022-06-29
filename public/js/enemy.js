@@ -13,23 +13,38 @@ class Enemy {
     this.speed = ESPEED;
     this.Hspeed = 0;
     this.Vspeed = this.speed;
-    this.width = 15;
+    this.width = 16;
     this.height = 16;
     this.imgSprite = 0;
     this.enemyPos = 0;
     this.enemySprite = 0;
     this.spriteState = 49;
     this.collision = false;
+    this.enemyEntity = Math.random();
   }
 
   /**
    * Draw the image of the ballon at the x and y coordinates of the ballon object, and scale it to the
    * size of the ballon object.
    */
+
   create() {
     context.drawImage(
-      ballonImgSprite[this.imgSprite],
-      ballonSprite[this.enemySprite][this.enemyPos],
+      this.enemyEntity <= 0.25
+        ? ballonImgSprite[this.imgSprite]
+        : this.enemyEntity > 0.25 && this.enemyEntity <= 0.5
+        ? cookieImgSprite[this.imgSprite]
+        : this.enemyEntity > 0.5 && this.enemyEntity <= 0.75
+        ? barrelImgSprite[this.imgSprite]
+        : ghostImgSprite[this.imgSprite],
+
+      this.enemyEntity <= 0.25
+        ? ballonSprite[this.enemySprite][this.enemyPos]
+        : this.enemyEntity > 0.25 && this.enemyEntity <= 0.5
+        ? cookieSprite[this.enemySprite][this.enemyPos]
+        : this.enemyEntity > 0.5 && this.enemyEntity <= 0.75
+        ? barrelSprite[this.enemySprite][this.enemyPos]
+        : ghostSprite[this.enemySprite][this.enemyPos],
       1,
       this.width,
       this.height,
