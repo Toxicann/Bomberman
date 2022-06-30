@@ -1,14 +1,12 @@
-getHighScore();
-
 /**
- * The run function initializes the game, creates the environment, generates a random door location,
- * and generates the terrain.
+ * plays game sound, creates &  runs the game level
  */
 const run = () => {
   levelStart.play();
   setTimeout(() => {
     stageTheme.play();
   }, 3000);
+
   initializeGame();
   createEnv();
   doorLocation = getRndInteger(0, randomDoorCounter);
@@ -42,13 +40,15 @@ const checkFlag = () => {
 };
 
 /**
- * If the player has less than the max number of bombs on the field, create a new bomb object at the
- * player's current position, add it to the bomb array, and increment the player's bomb count.
+ * plants bomb if the bomb can be planted by player determined by max bombs on field
  */
 const plantBomb = () => {
-  console.log(player.bombs_on_field, player.max_bombs_on_field);
   if (player.bombs_on_field < player.max_bombs_on_field) {
-    bomb = new Bomb(player.x, player.y);
+    bomb = new Bomb(
+      Math.floor(player.x / gridCol) * gridCol,
+      Math.floor(player.y / gridRow) * gridRow
+    );
+
     putBomb.play();
     bomb.isPlanted = true;
     player.bombs_on_field++;
@@ -62,8 +62,6 @@ const plantBomb = () => {
 const draw = () => {
   context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (playerCount > 0) player.create();
 
   if (doorCount > 0) door.create();
 
@@ -91,6 +89,8 @@ const draw = () => {
     }, 5000);
   });
 
+  if (playerCount > 0) player.create();
+
   explosionObjArr.forEach((explosion, index) => {
     explosion.create();
     explosion.explosionAnimation(index);
@@ -112,12 +112,16 @@ const updateParameters = setInterval(() => {
 }, 1000);
 
 /**
- * If the player is dead, check if they're dead, clear the interval, and after 3 seconds, display the
- * home screen.
+ * If the player is dead, check if they're dead, clear the interval,
+ *  and after 3 seconds, display the home screen.
  */
 const playerDeathInterval = () => {
   const playerUpdates = setInterval(() => {
     if (!player.isAlive) {
+      if (highScore < gameScore) {
+        highScore = gameScore;
+        setHighScore(highScore);
+      }
       stageTheme.pause();
       findDoor.pause();
       stageTheme.currentTime = 0;
@@ -126,10 +130,6 @@ const playerDeathInterval = () => {
       gameOver.play();
       clearInterval(playerUpdates);
       setTimeout(() => {
-        if (highScore < gameScore) {
-          highScore = gameScore;
-          setHighScore(highScore);
-        }
         titleScreen.play();
         homeScreen.style.display = "flex";
         canvas.style.display = "none";
@@ -141,10 +141,7 @@ const playerDeathInterval = () => {
 };
 
 /**
- * If the startFlag is true, then if the animationInterval is greater than or equal to 20, then call
- * the collision function, then for each enemy in the enemyObjArr, call the update function, then set
- * the animationInterval to 0, otherwise increment the animationInterval, then call the draw function,
- * then call the animate function.
+ * runs the loop when start flag is true, animates the game, and checks for collisions
  */
 const animate = () => {
   if (startFlag) {
@@ -185,5 +182,3 @@ const nextLevel = () => {
     run();
   }
 };
-
-// animate();

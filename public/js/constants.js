@@ -62,7 +62,7 @@ const BOMB_WIDTH = 16;
 const EXPLOSION_WIDTH = 16;
 const EXPLOSION_HEIGHT = 16;
 
-const ESPEED = 5;
+const ESPEED = 4;
 
 const numCols = Math.floor(WINDOW_WIDTH / gridCol);
 const numRows = Math.floor(WINDOW_HEIGHT / gridRow);
@@ -84,17 +84,86 @@ const ballonMoveLeft = [0, 18, 33];
 const ballonMoveRight = [65, 80, 96];
 const BallonDeath = [49, 49, 49];
 
+const ballonLeftSize = [
+  { x: 16, y: 14 },
+  { x: 14, y: 15 },
+  { x: 14, y: 16 },
+];
+const ballonRightSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 15 },
+  { x: 16, y: 14 },
+];
+const ballonMiddleSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+];
+
 const cookieMoveLeft = [1, 18, 35];
 const cookieMoveRight = [69, 86, 103];
 const cookieDeath = [52, 52, 52];
+
+const cookieLeftSize = [
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+];
+const cookieRightSize = [
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+];
+const cookieMiddleSize = [
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+  { x: 16, y: 16 },
+];
 
 const barrelMoveLeft = [1, 20, 38];
 const barrelMoveRight = [74, 92, 109];
 const barrelDeath = [56, 56, 56];
 
+const barrelLeftSize = [
+  { x: 16, y: 12 },
+  { x: 14, y: 14 },
+  { x: 14, y: 16 },
+];
+const barrelRightSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 14 },
+  { x: 16, y: 12 },
+];
+const barrelMiddleSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+];
+
 const ghostMoveLeft = [0, 17, 33];
 const ghostMoveRight = [65, 81, 97];
 const ghostDeath = [49, 49, 49];
+
+const ghostLeftSize = [
+  { x: 16, y: 15 },
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+];
+const ghostRightSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+  { x: 16, y: 15 },
+];
+const ghostMiddleSize = [
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+  { x: 14, y: 16 },
+];
+
+const ballonSize = [ballonLeftSize, ballonMiddleSize, ballonRightSize];
+const barrelSize = [barrelLeftSize, barrelMiddleSize, barrelRightSize];
+const cookieSize = [cookieLeftSize, cookieMiddleSize, cookieRightSize];
+const ghostSize = [ballonLeftSize, ghostMiddleSize, ghostRightSize];
 
 const enemyDeathSprite = [1, 17, 32];
 

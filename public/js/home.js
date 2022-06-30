@@ -1,3 +1,5 @@
+getHighScore();
+
 /* Playing the title screen music when the window loads. */
 window.onload = () => {
   titleScreen.play();

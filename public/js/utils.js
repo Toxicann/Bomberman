@@ -135,9 +135,7 @@ const removeBombs = (arr, index) => {
 const setHighScore = (highScore) => {
   fetch(`${url}/save_highscore`, options({ Highscore: highScore }, "POST"))
     .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
+    .then(getHighScore);
 };
 
 /**

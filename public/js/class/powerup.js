@@ -44,6 +44,7 @@ class Powerup {
       switch (this.id) {
         case 0:
           SPEED += 2;
+          player.max_bombs_on_field += 1;
           powerups = undefined;
           break;
 
@@ -59,7 +60,7 @@ class Powerup {
           break;
 
         case 2:
-          player.max_bombs_on_field += 1;
+          player.max_bombs_on_field += 3;
           powerups = undefined;
           break;
       }

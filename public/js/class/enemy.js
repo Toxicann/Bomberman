@@ -121,7 +121,7 @@ class Enemy {
   }
 
   /**
-   * collision check with bomn
+   * collision check with bomb
    */
   checkBombCollision() {
     if (

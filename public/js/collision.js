@@ -78,7 +78,7 @@ const collision = () => {
   }
 
   enemyObjArr.forEach((enemy, index) => {
-    if (player != undefined) {
+    if (player != undefined && enemy.isAlive) {
       if (
         player.x + collisionRadius > enemy.x ||
         player.x - collisionRadius < enemy.x + enemy.width ||
