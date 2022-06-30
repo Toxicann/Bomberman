@@ -1,6 +1,6 @@
 /* Listening for keydown events and then executing the code inside the switch statement. */
 addEventListener("keydown", ({ code }) => {
-  if (player.isAlive) {
+  if (player.isAlive && !isLevelEditor) {
     switch (code) {
       case "KeyD":
         player.x += player.speed;
@@ -8,7 +8,7 @@ addEventListener("keydown", ({ code }) => {
         WALK.play();
         collision();
         if (player.playerCollision) {
-          player.x -= player.speed;
+          player.x -= SPEED;
           player.playerCollision = false;
         }
         player.update();
@@ -20,7 +20,7 @@ addEventListener("keydown", ({ code }) => {
         WALK.play();
         collision();
         if (player.playerCollision) {
-          player.x += player.speed;
+          player.x += SPEED;
           player.playerCollision = false;
         }
         player.update();
@@ -32,7 +32,7 @@ addEventListener("keydown", ({ code }) => {
         WALK.play();
         collision();
         if (player.playerCollision) {
-          player.y += player.speed;
+          player.y += SPEED;
           player.playerCollision = false;
         }
         player.update();
@@ -44,7 +44,7 @@ addEventListener("keydown", ({ code }) => {
         WALK.play();
         collision();
         if (player.playerCollision) {
-          player.y -= player.speed;
+          player.y -= SPEED;
           player.playerCollision = false;
         }
         player.update();
