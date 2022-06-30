@@ -1,75 +1,77 @@
 /* Listening for keydown events and then executing the code inside the switch statement. */
 addEventListener("keydown", ({ code }) => {
-  switch (code) {
-    case "KeyD":
-      player.x += player.speed;
-      playerMoves = playerMoveRight;
-      WALK.play();
-      collision();
-      if (player.playerCollision) {
-        player.x -= player.speed;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
-
-    case "KeyA":
-      player.x -= player.speed;
-      playerMoves = playerMoveLeft;
-      WALK.play();
-      collision();
-      if (player.playerCollision) {
+  if (player.isAlive) {
+    switch (code) {
+      case "KeyD":
         player.x += player.speed;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
+        playerMoves = playerMoveRight;
+        WALK.play();
+        collision();
+        if (player.playerCollision) {
+          player.x -= player.speed;
+          player.playerCollision = false;
+        }
+        player.update();
+        break;
 
-    case "KeyW":
-      player.y -= player.speed;
-      playerMoves = playerMoveUp;
-      WALK.play();
-      collision();
-      if (player.playerCollision) {
-        player.y += player.speed;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
+      case "KeyA":
+        player.x -= player.speed;
+        playerMoves = playerMoveLeft;
+        WALK.play();
+        collision();
+        if (player.playerCollision) {
+          player.x += player.speed;
+          player.playerCollision = false;
+        }
+        player.update();
+        break;
 
-    case "KeyS":
-      player.y += player.speed;
-      playerMoves = playerMoveDown;
-      WALK.play();
-      collision();
-      if (player.playerCollision) {
+      case "KeyW":
         player.y -= player.speed;
-        player.playerCollision = false;
-      }
-      player.update();
-      break;
+        playerMoves = playerMoveUp;
+        WALK.play();
+        collision();
+        if (player.playerCollision) {
+          player.y += player.speed;
+          player.playerCollision = false;
+        }
+        player.update();
+        break;
 
-    case "Space":
-      isLeftClear = true;
-      isRightClear = true;
-      isTopClear = true;
-      isBottomClear = true;
-      plantBomb();
-      break;
+      case "KeyS":
+        player.y += player.speed;
+        playerMoves = playerMoveDown;
+        WALK.play();
+        collision();
+        if (player.playerCollision) {
+          player.y -= player.speed;
+          player.playerCollision = false;
+        }
+        player.update();
+        break;
 
-    //testing below
-    case "KeyP":
-      brickArrObj.forEach((brick) => {
-        brick.isDestroyed = true;
-      });
-      break;
+      case "Space":
+        isLeftClear = true;
+        isRightClear = true;
+        isTopClear = true;
+        isBottomClear = true;
+        plantBomb();
+        break;
 
-    case "KeyO":
-      enemyObjArr.forEach((enemy) => {
-        enemy.isAlive = false;
-      });
-      break;
-    //testing above
+      //testing below
+      case "KeyP":
+        brickArrObj.forEach((brick) => {
+          brick.isDestroyed = true;
+        });
+        break;
+
+      case "KeyO":
+        enemyObjArr.forEach((enemy) => {
+          enemy.isAlive = false;
+        });
+        break;
+      //testing above
+    }
   }
 });
 

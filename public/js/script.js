@@ -130,6 +130,10 @@ const playerDeathInterval = () => {
       gameOver.play();
       clearInterval(playerUpdates);
       setTimeout(() => {
+        stageTheme.pause();
+        findDoor.pause();
+        stageTheme.currentTime = 0;
+        findDoor.currentTime = 0;
         titleScreen.play();
         homeScreen.style.display = "flex";
         canvas.style.display = "none";

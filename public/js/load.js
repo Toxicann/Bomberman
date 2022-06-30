@@ -3,16 +3,15 @@
  * for each level.
  */
 const load = () => {
-  titleScreen.pause();
-  titleScreen.currentTime = 0;
-  homeScreen.style.display = "none";
-  levelLoader.style.display = "flex";
-
-  levelLoader.innerHTML = "";
-
   fetch(`${url}/load_level`)
     .then((res) => res.json())
     .then((data) => {
+      titleScreen.pause();
+      titleScreen.currentTime = 0;
+      homeScreen.style.display = "none";
+      levelLoader.style.display = "flex";
+
+      levelLoader.innerHTML = "";
       data.forEach((level) => {
         const levelItem = document.createElement("div");
         levelItem.classList.add("level__item");
