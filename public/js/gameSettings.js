@@ -1,72 +1,101 @@
-let playerMoves = playerMoveDown;
-
-let randomDoorCounter;
-let enemyCount;
-let playerCount;
-let doorCount;
-let brickCount;
-let animationInterval;
 let gameTimer;
 let gameScore = 0;
-let levelCompleted;
 let maxEnemyCount = 5;
+let animationInterval;
+let collisionRadius = 150;
+
 let highScore;
+let doorCount;
+let brickCount;
+let enemyCount;
+let powerCount;
+let playerCount;
+let powerUpCount;
+let levelCompleted;
+let randomDoorCounter;
+let randomPowerUpCounter;
 
 let bomb;
-let player;
 let door;
+let SPEED;
+let brick;
+let enemy;
+let player;
+let strWall;
 let playeri;
 let playerj;
+let powerups;
 let doorLocation;
+let powerUpLocation;
 
+let isTopClear;
 let isLeftClear;
 let isRightClear;
-let isTopClear;
 let isBottomClear;
 
-let explosionObjArr;
 let wallArr;
-let strWallArrObj;
-let brickArrObj;
-let bombArrObj;
-let enemyObjArr;
 let levelArr;
+let bombArrObj;
+let brickArrObj;
+let enemyObjArr;
+let strWallArrObj;
+let explosionObjArr;
+
+let isDoorSelected;
+let isBrickSelected;
+let isEnemySelected;
+let isPlayerSelected;
+let isWallSelected = true;
+
+let isDelete = false;
+let startFlag = false;
+let isLevelEditor = false;
+
+let playerMoves = playerMoveDown;
 
 /**
  * InitializeGame() is a function that resets all the variables to their original values.
  */
 const initializeGame = () => {
   getHighScore();
+
   startFlag = true;
   levelCompleted = false;
-  randomDoorCounter = 0;
-  enemyCount = 0;
-  playerCount = 0;
-  brickCount = 0;
+
   doorCount = 0;
+  enemyCount = 0;
+  powerCount = 0;
+  brickCount = 0;
+  playerCount = 0;
+  powerUpCount = 1;
+  randomDoorCounter = 0;
   animationInterval = 0;
+  randomPowerUpCounter = 0;
+
+  SPEED = 4;
   gameTimer = 200;
 
+  isTopClear = true;
   isLeftClear = true;
   isRightClear = true;
-  isTopClear = true;
   isBottomClear = true;
 
-  explosionObjArr = [];
   wallArr = [];
-  strWallArrObj = [];
-  brickArrObj = [];
   bombArrObj = [];
   enemyObjArr = [];
-  player = undefined;
+  brickArrObj = [];
+  strWallArrObj = [];
+  explosionObjArr = [];
+
   door = undefined;
+  player = undefined;
+  powerups = undefined;
 };
 
 /**
  * It creates a 2D array of strings, where each string represents a type of cell
  */
 const createEnv = () => {
-  console.log("aii");
   for (let i = 0; i < numRows; i++) {
     let wallArrRow = [];
     for (let j = 0; j < numCols; j++) {
@@ -99,6 +128,7 @@ const createEnv = () => {
       else if (Math.random() < 0.3 && (i > playeri + 2 || j > playerj + 3)) {
         wallArrRow.push("brick");
         randomDoorCounter++;
+        randomPowerUpCounter++;
       }
 
       //for empty spaces
@@ -124,26 +154,31 @@ const generateTerrain = () => {
 
       //generate bricks
       else if (wallArr[i][j] === "brick") {
-        const brick = new Brick(brickGridCol * j, brickGridRow * i);
+        const brick = new Brick(gridCol * j, gridRow * i);
         brickArrObj.push(brick);
         brickCount++;
 
         //generate door on brick
         if (doorLocation == brickCount) {
-          door = new Door(brickGridCol * j, brickGridRow * i);
+          door = new Door(gridCol * j, gridRow * i);
           doorCount++;
+        }
+
+        if (powerUpLocation == brickCount) {
+          powerups = new Powerup(gridCol * j, gridRow * i);
+          powerCount++;
         }
       }
 
       //generate player
       else if (wallArr[i][j] === "player") {
-        player = new Player(brickGridCol * j, brickGridRow * i);
+        player = new Player(gridCol * j, gridRow * i);
       }
 
       //generate Enemies
       else if (wallArr[i][j] === "empty" && enemyCount < maxEnemyCount) {
         if (Math.random() <= 0.04) {
-          enemy = new Enemy(brickGridCol * j, brickGridRow * i, enemyCount);
+          enemy = new Enemy(gridCol * j, gridRow * i, enemyCount);
           enemyCount++;
           enemyObjArr.push(enemy);
         }

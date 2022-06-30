@@ -1,7 +1,6 @@
 class StrongWall {
   /**
-   * The constructor function is a function that is called when a new object is created. It is called
-   * with the new keyword.
+   * The constructor function creates a new object with the properties x, y,and other properties.
    * @param x - the x coordinate of the top left corner of the rectangle
    * @param y - The y coordinate of the top left corner of the rectangle.
    */
@@ -20,9 +19,7 @@ class StrongWall {
   }
 
   /**
-   *
    * checks player collision with the strong aka indestructible wall
-   * The above function is called in the update function of the Enemy class.
    */
   checkCollision() {
     if (
@@ -39,9 +36,7 @@ class StrongWall {
   }
 
   /**
-   *
    * checks enemy collision with strong wall
-   *
    */
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {
@@ -57,9 +52,7 @@ class StrongWall {
   }
 
   /**
-   *
    * checks bomb collision and clear's the surrounding tiles
-   *
    */
   checkBombCollision() {
     bombArrObj.forEach((bomb) => {

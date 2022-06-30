@@ -33,3 +33,12 @@ enemyDeathImg.src = "../assets/enemies/destroy-enemy/destroy-enemy.png";
 
 const centerExplosionImg = new Image();
 centerExplosionImg.src = "../assets/bomb/explosion/explosion-center.png";
+
+const speedPowerUPImg = new Image();
+speedPowerUPImg.src = "../assets/powers/power1.png";
+
+const destroyAllPowerUpImg = new Image();
+destroyAllPowerUpImg.src = "../assets/powers/power2.png";
+
+const additionalBombPowerUpImg = new Image();
+additionalBombPowerUpImg.src = "../assets/powers/power3.png";

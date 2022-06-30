@@ -1,28 +1,4 @@
-let context = canvas.getContext("2d");
-
-gameInfo.style.width = toPx(WINDOW_WIDTH - 4);
-gameInfo.style.height = toPx(60);
-
-levelEditor.style.width = toPx(WINDOW_WIDTH - 4);
-levelEditor.style.height = toPx(60);
-
-levelLoader.style.width = toPx(WINDOW_WIDTH);
-levelLoader.style.height = toPx(WINDOW_HEIGHT);
-
-timer.innerHTML = "Time: ";
-gameInfo.appendChild(timer);
-
-score.innerHTML = "Score: 0";
-gameInfo.appendChild(score);
-
-life.innerHTML = "Lives: 0";
-gameInfo.appendChild(life);
-
-context.webkitImageSmoothingEnabled = false;
-context.webkitImageSmoothingEnabled = false;
-
-canvas.width = WINDOW_WIDTH;
-canvas.height = WINDOW_HEIGHT;
+getHighScore();
 
 /**
  * The run function initializes the game, creates the environment, generates a random door location,
@@ -36,6 +12,7 @@ const run = () => {
   initializeGame();
   createEnv();
   doorLocation = getRndInteger(0, randomDoorCounter);
+  powerUpLocation = getRndInteger(0, randomDoorCounter);
   generateTerrain();
 
   const findDoorSound = setInterval(() => {
@@ -90,6 +67,8 @@ const draw = () => {
 
   if (doorCount > 0) door.create();
 
+  if (powerups != undefined) powerups.create();
+
   strWallArrObj.forEach((wall) => {
     wall.create();
   });
@@ -115,51 +94,6 @@ const draw = () => {
   explosionObjArr.forEach((explosion, index) => {
     explosion.create();
     explosion.explosionAnimation(index);
-  });
-};
-
-/**
- * Check for collisions between the player and the walls, bricks, door, and enemies.
- */
-const collision = () => {
-  strWallArrObj.forEach((wall, index) => {
-    if (player != undefined) {
-      wall.checkCollision();
-    }
-    wall.checkEnemyCollision();
-    wall.checkBombCollision(index);
-  });
-
-  brickArrObj.forEach((brick, index) => {
-    if (player != undefined) {
-      brick.checkCollision();
-    }
-    brick.checkEnemyCollision();
-    brick.checkDestruction(index);
-    brick.checkBombCollision(index);
-    brick.checkExplosionCollision(index);
-  });
-
-  if (door != undefined) {
-    door.checkDoorCollision();
-  }
-
-  enemyObjArr.forEach((enemy, index) => {
-    if (player != undefined) {
-      enemy.checkCollision(index);
-    }
-
-    if (bombArrObj.length > 0) {
-      enemy.checkBombCollision(index);
-    }
-  });
-
-  explosionObjArr.forEach((explosion) => {
-    if (player != undefined) {
-      explosion.checkCollision();
-    }
-
-    explosion.checkEnemyCollision();
   });
 };
 

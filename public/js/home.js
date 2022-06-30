@@ -1,19 +1,10 @@
-const homeScreen = document.getElementById("home");
-
-const newGame = document.getElementById("start");
-const loadGame = document.getElementById("load");
-const createGame = document.getElementById("create");
-
-let startFlag = false;
-getHighScore();
-
+/* Playing the title screen music when the window loads. */
 window.onload = () => {
   titleScreen.play();
 };
 
 /**
- * When the start button is clicked, the home screen is hidden, the canvas is displayed, the game info
- * is displayed, the start flag is set to true, and the check flag function is called.
+ * When the start button is clicked, the game starts.
  */
 const start = () => {
   homeScreen.style.display = "none";

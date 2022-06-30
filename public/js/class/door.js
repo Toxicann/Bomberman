@@ -1,7 +1,6 @@
 class Door {
   /**
-   * The constructor function is used to create a new object with the properties x, y, width, height, and
-   * playerDetected.
+   * The constructor function is used to create a new object with the properties x, y,
    * @param x - The x coordinate of the door.
    * @param y - The y coordinate of the door.
    */
@@ -21,8 +20,8 @@ class Door {
   }
 
   /**
-   * If the player is within the door's x and y coordinates, then the playerDetected property is set to
-   * true.
+   * If the player is within the door's x and y coordinates,
+   *  then the playerDetected property is set to true.
    */
   checkDoorCollision() {
     if (

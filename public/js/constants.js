@@ -1,15 +1,15 @@
 const wallTile = document.getElementById("wallTile");
-const brickTile = document.getElementById("brickTile");
 const doorTile = document.getElementById("doorTile");
-const playerEntity = document.getElementById("playerEntity");
+const brickTile = document.getElementById("brickTile");
 const enemyEnitity = document.getElementById("enemyEntity");
+const playerEntity = document.getElementById("playerEntity");
 
 const btnGroup = document.getElementById("btn--grp");
 const saveSettings = document.getElementById("save--settings");
 
-const clearMap = document.getElementById("clear");
-const saveMap = document.getElementById("save");
 const exit = document.getElementById("exit");
+const saveMap = document.getElementById("save");
+const clearMap = document.getElementById("clear");
 const remove = document.getElementById("deleteTile");
 
 const levelInput = document.getElementById("level--input");
@@ -18,13 +18,21 @@ const life = document.createElement("h2");
 const score = document.createElement("h2");
 const timer = document.createElement("h2");
 
-const levelEditor = document.getElementById("level__editor");
 const levelLoader = document.getElementById("load--levels");
+const levelEditor = document.getElementById("level__editor");
 
 const gameInfo = document.getElementById("game__info");
 const canvas = document.getElementById("game__window");
 
 const HIGHSCORE = document.getElementById("highscore");
+
+const homeScreen = document.getElementById("home");
+
+const newGame = document.getElementById("start");
+const loadGame = document.getElementById("load");
+const createGame = document.getElementById("create");
+
+const context = canvas.getContext("2d");
 
 const WINDOW_WIDTH = 1485;
 const WINDOW_HEIGHT = 765;
@@ -42,9 +50,6 @@ const BRICK_HEIGHT_SCALE_FACTOR = 3.2;
 const gridCol = STRWALL_WIDTH * SCALE_FACTOR;
 const gridRow = STRWALL_HEIGHT * SCALE_FACTOR;
 
-const brickGridCol = BRICK_WIDTH * SCALE_FACTOR;
-const brickGridRow = BRICK_HEIGHT * SCALE_FACTOR;
-
 const PLAYER_WIDTH = 12;
 const PLAYER_HEIGHT = 17;
 
@@ -57,7 +62,6 @@ const BOMB_WIDTH = 16;
 const EXPLOSION_WIDTH = 16;
 const EXPLOSION_HEIGHT = 16;
 
-const SPEED = 4;
 const ESPEED = 5;
 
 const numCols = Math.floor(WINDOW_WIDTH / gridCol);
@@ -124,6 +128,12 @@ const ghostSprite = [
   ghostMoveRight,
   enemyDeathSprite,
   ghostDeath,
+];
+
+const Powerups = [
+  speedPowerUPImg,
+  destroyAllPowerUpImg,
+  additionalBombPowerUpImg,
 ];
 
 const horizontalExplosion = [1, 19, 37, 55];

@@ -7,7 +7,7 @@ addEventListener("keydown", ({ code }) => {
       WALK.play();
       collision();
       if (player.playerCollision) {
-        player.x -= SPEED;
+        player.x -= player.speed;
         player.playerCollision = false;
       }
       player.update();
@@ -19,7 +19,7 @@ addEventListener("keydown", ({ code }) => {
       WALK.play();
       collision();
       if (player.playerCollision) {
-        player.x += SPEED;
+        player.x += player.speed;
         player.playerCollision = false;
       }
       player.update();
@@ -31,7 +31,7 @@ addEventListener("keydown", ({ code }) => {
       WALK.play();
       collision();
       if (player.playerCollision) {
-        player.y += SPEED;
+        player.y += player.speed;
         player.playerCollision = false;
       }
       player.update();
@@ -43,7 +43,7 @@ addEventListener("keydown", ({ code }) => {
       WALK.play();
       collision();
       if (player.playerCollision) {
-        player.y -= SPEED;
+        player.y -= player.speed;
         player.playerCollision = false;
       }
       player.update();
@@ -58,15 +58,6 @@ addEventListener("keydown", ({ code }) => {
       break;
 
     //testing below
-    case "KeyL":
-      enemy.update();
-      collision();
-      break;
-
-    case "KeyZ":
-      player.checkDeath();
-      break;
-
     case "KeyP":
       brickArrObj.forEach((brick) => {
         brick.isDestroyed = true;

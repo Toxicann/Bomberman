@@ -44,7 +44,6 @@ const containsUndefined = (arr) => {
  */
 const getCoordinates = (e) => {
   const { x, y } = e.target.getBoundingClientRect();
-  console.log(x, y, e);
   const mouseX = e.clientX - x;
   const mouseY = e.clientY - y;
   return [Math.floor(mouseX / gridCol), Math.floor(mouseY / gridRow)];
@@ -109,11 +108,18 @@ const removeObjects = (arr, index) => {
  * @param index - the index of the brick in the array
  */
 const removeBricks = (arr, index) => {
-  if (arr[index].isDestroyed) {
-    arr.splice(index, 1);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[index].isDestroyed) {
+      arr.splice(index, 1);
+    }
   }
 };
 
+/**
+ * It removes all bombs from the array if the bomb at the given index is exploded.
+ * @param arr - the array of bombs
+ * @param index - the index of the bomb that exploded
+ */
 const removeBombs = (arr, index) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[index].isExploded) {
@@ -134,7 +140,6 @@ const setHighScore = (highScore) => {
     });
 };
 
-//
 /**
  * It fetches the highscore from the database and then sets the highscore to the value that was
  * fetched.

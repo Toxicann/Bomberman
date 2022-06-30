@@ -16,8 +16,8 @@ class Brick {
   }
 
   /**
-   * "Draw the brick image at the x and y coordinates of the brick object, and scale it to the width and
-   * height of the brick object."
+   * "Draw the brick image at the x and y coordinates of the brick object,
+   *  and scale it to the width and height of the brick object."
    */
   create() {
     context.drawImage(
@@ -34,9 +34,7 @@ class Brick {
   }
 
   /**
-   *
-   * check collision with player
-   *
+   * check collision with player entity
    */
   checkCollision() {
     if (
@@ -53,7 +51,7 @@ class Brick {
   }
 
   /**
-   * collision with enemy
+   * collision with enemy entity
    */
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {
@@ -69,8 +67,7 @@ class Brick {
   }
 
   /**
-   * If the explosion's x and y coordinates are within the brick's x and y coordinates, then the brick
-   * is destroyed.
+   * If the explosion's x and y coordinates are within the brick's x and y coordinates, then the brick is destroyed.
    * @param index - the index of the brick in the brickArrObj array
    */
   checkExplosionCollision(index) {
@@ -158,8 +155,8 @@ class Brick {
   }
 
   /**
-   * If the brick is destroyed, then increment the spriteState every 250ms until the spriteState is
-   * greater than 6, then clear the interval and delete the brick from the brickArrObj.
+   * If the brick is destroyed, then increment the spriteState every 250ms until the spriteState is greater than 6,
+   * then clear the interval and delete the brick from the brickArrObj.
    * @param index - the index of the brick in the brickArrObj array
    */
   checkDestruction(index) {

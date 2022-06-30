@@ -1,7 +1,7 @@
 class Explosion {
   /**
-   * The constructor function creates a new explosion object with the given x and y coordinates, and sets
-   * the width, height, spriteState, and animationInterval properties.
+   * The constructor function creates a new explosion object with the given x and y coordinates,
+   *  and sets the other properties.
    * @param x - The x coordinate of the explosion.
    * @param y - The y coordinate of the explosion
    */
@@ -15,8 +15,8 @@ class Explosion {
   }
 
   /**
-   * Draw the image of the explosion at the x and y coordinates of the explosion, and scale it by the
-   * scale factor.
+   * Draw the image of the explosion at the x and y coordinates of the explosion,
+   *  and scale it by the scale factor.
    */
   create() {
     context.drawImage(
@@ -33,9 +33,7 @@ class Explosion {
   }
 
   /**
-   * If the animation interval is greater than or equal to 15, then if the sprite state is greater than
-   * or equal to 3, delete the explosion object from the array, otherwise increment the sprite state. If
-   * the animation interval is not greater than or equal to 15, increment the animation interval.
+   * animate bomb explosion
    * @param index - the index of the explosion object in the explosionObjArr array
    */
   explosionAnimation(index) {
@@ -50,8 +48,8 @@ class Explosion {
   }
 
   /**
-   * If the left, right, top, or bottom of the bomb is clear, then create an explosion object at that
-   * location
+   * If the left, right, top, or bottom of the bomb is clear,
+   *  then create an explosion object at that location
    */
   explosionNearby() {
     if (isLeftClear) {
@@ -87,8 +85,8 @@ class Explosion {
   }
 
   /**
-   * If the player's x and y coordinates are within the enemy's x and y coordinates, then the enemy is
-   * dead
+   * If the explosion's x and y coordinates are within the enemy's x and y coordinates,
+   *  then the enemy is dead
    */
   checkEnemyCollision() {
     enemyObjArr.forEach((enemy) => {

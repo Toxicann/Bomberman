@@ -11,8 +11,6 @@ const explode = new Audio("assets/music/bomb/explosion.mp3");
 
 const gameOver = new Audio("assets/music/stage/game-over.mp3");
 
-// const levelComplete = new Audio("assets/music/stage/level-complete.mp3");
-
 const WALK = new Audio("assets/music/character/walk.wav");
 WALK.playbackRate = 4;
 

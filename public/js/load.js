@@ -57,9 +57,29 @@ const loadLevel = (levelName) => {
     .then((res) => res.json())
     .then((data) => {
       initializeGame();
+      levelStart.play();
+
+      setTimeout(() => {
+        stageTheme.play();
+      }, 3000);
+
+      const findDoorSound = setInterval(() => {
+        if (enemyObjArr.length == 0) {
+          stageTheme.pause();
+          stageTheme.currentTime = 0;
+          findDoor.play();
+          clearInterval(findDoorSound);
+        }
+      }, 1000);
+
+      const lastEnemySound = setInterval(() => {
+        if (enemyObjArr.length == 1) {
+          lastEnemy.play();
+          clearInterval(lastEnemySound);
+        }
+      });
 
       const playerData = data.player;
-      console.log(playerData);
       const enemyObjArrData = data.enemy;
       const strWallArrObjData = data.walls;
       const brickArrObjData = data.bricks;
@@ -107,7 +127,7 @@ const loadLevel = (levelName) => {
 const deleteLevel = (levelName) => {
   fetch(`${url}/delete_level/${levelName}`, options({}, "DELETE")).then(
     (res) => {
-      load();
+      goHome();
       return res.json();
     }
   );

@@ -1,8 +1,6 @@
 class Bomb {
   /**
-   * The constructor function for the Bomb class, which takes in the x and y coordinates of the bomb and
-   * sets the width, height, isPlanted, isExploded, spritePos, spriteState, and animationInterval
-   * properties of the bomb.
+   * The constructor function for the Bomb class, which takes in the x and y coordinates of the bomb and sets the properties of the bomb.
    * @param x - x-coordinate of the bomb
    * @param y - The y position of the bomb.
    */
@@ -19,8 +17,7 @@ class Bomb {
   }
 
   /**
-   * Draw the bomb image at the x and y coordinates of the bomb object, and scale it to the size of the
-   * bomb object.
+   * Draw the bomb image at the x and y coordinates of the bomb object, and scale it to the size of the bomb object.
    */
   create() {
     context.drawImage(
@@ -49,10 +46,7 @@ class Bomb {
   }
 
   /**
-   * If the bomb is not exploded, then set the bomb to exploded, create a new explosion object, call the
-   * explosionNearby function on the new explosion object, push the new explosion object to the
-   * explosionObjArr array, remove the bomb from the bombArrObj array, and decrement the player's
-   * bombs_on_field property.
+   * If the bomb is not exploded, then set the bomb to exploded, create a new explosion object, call the explosionNearby function on the new explosion object.
    * @param index - the index of the bomb in the bombArrObj array
    */
   explosion(index) {

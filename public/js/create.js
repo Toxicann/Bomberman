@@ -1,19 +1,5 @@
-let isLevelEditor = false;
-let isDelete = false;
-
-let strWall;
-let brick;
-let enemy;
-
-let isWallSelected = true;
-let isBrickSelected;
-let isDoorSelected;
-let isPlayerSelected;
-let isEnemySelected;
-
 /**
- * It hides the home screen, shows the canvas and level editor, sets the isLevelEditor variable to
- * true, initializes the game, and starts the animation
+ * starts level creator
  */
 const create = () => {
   titleScreen.pause();
@@ -31,10 +17,10 @@ const create = () => {
  */
 const selectWall = () => {
   isWallSelected = true;
-  isBrickSelected = false;
   isDoorSelected = false;
-  isPlayerSelected = false;
+  isBrickSelected = false;
   isEnemySelected = false;
+  isPlayerSelected = false;
 };
 
 /**
@@ -42,21 +28,21 @@ const selectWall = () => {
  */
 const selectBrick = () => {
   isWallSelected = false;
-  isBrickSelected = true;
   isDoorSelected = false;
-  isPlayerSelected = false;
+  isBrickSelected = true;
   isEnemySelected = false;
+  isPlayerSelected = false;
 };
 
 /**
  * When the Door is selected, the other objects are not selected.
  */
 const selectDoor = () => {
+  isDoorSelected = true;
   isWallSelected = false;
   isBrickSelected = false;
-  isDoorSelected = true;
-  isPlayerSelected = false;
   isEnemySelected = false;
+  isPlayerSelected = false;
 };
 
 /**
@@ -64,10 +50,10 @@ const selectDoor = () => {
  */
 const selectPlayer = () => {
   isWallSelected = false;
-  isBrickSelected = false;
   isDoorSelected = false;
-  isPlayerSelected = true;
+  isBrickSelected = false;
   isEnemySelected = false;
+  isPlayerSelected = true;
 };
 
 /**
@@ -75,10 +61,10 @@ const selectPlayer = () => {
  */
 const selectEnemy = () => {
   isWallSelected = false;
-  isBrickSelected = false;
   isDoorSelected = false;
-  isPlayerSelected = false;
   isEnemySelected = true;
+  isBrickSelected = false;
+  isPlayerSelected = false;
 };
 
 /**
@@ -201,31 +187,28 @@ const deleteTile = (event) => {
  */
 const saveMapEntities = () => {
   const savedMapObj = {
-    level_name: levelInput.value || "Level",
+    level_name: levelInput.value || `level${Math.random().toFixed(2) * 1000}`,
     walls: strWallArrObj,
     bricks: brickArrObj,
     enemy: enemyObjArr,
     player: player,
     door: door,
   };
-
-  fetch(`${url}/create_level`, options(savedMapObj, "POST"))
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data.body);
-    });
-
-  goHome();
+  saveMap.innerText = "Saving";
+  fetch(`${url}/create_level`, options(savedMapObj, "POST")).then(goHome);
 };
 
 /**
- * When the home button is clicked, the home screen is displayed, the canvas is hidden, the level
- * editor is hidden, the level editor is not active, and the delete button is not active.
+ * go to home screen
  */
 const goHome = () => {
+  saveMap.innerText = "save";
+  levelInput.value = "";
+
   homeScreen.style.display = "flex";
   canvas.style.display = "none";
   levelEditor.style.display = "none";
+
   isLevelEditor = false;
   isDelete = false;
   initializeGame();

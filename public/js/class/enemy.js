@@ -24,8 +24,8 @@ class Enemy {
   }
 
   /**
-   * Draw the image of the ballon at the x and y coordinates of the ballon object, and scale it to the
-   * size of the ballon object.
+   * Draw the image of the ballon at the x and y coordinates of the ballon object,
+   *  and scale it to the size of the ballon object.
    */
 
   create() {
@@ -56,8 +56,7 @@ class Enemy {
   }
 
   /**
-   * If the enemy is hit, it will change its sprite to a death sprite, wait 3 seconds, then change its
-   * sprite back to the original sprite, and then delete itself from the array.
+   * If the enemy is hit, it will change its sprite to a death sprite
    */
   checkDeath() {
     this.enemySprite = 3;
@@ -77,13 +76,11 @@ class Enemy {
   }
 
   /**
-   * If the enemy is alive, then move the enemy in the direction it's facing. If the enemy is dead,
-   * then check if it's time to respawn.
+   * If the enemy is alive, then move the enemy in the direction it's facing.
    */
   update() {
     if (this.isAlive) {
       this.enemyPos == 2 ? (this.enemyPos = 0) : this.enemyPos++;
-      // console.log(this.Hspeed, this.Vspeed);
       this.Hspeed < 0 ? (this.enemySprite = 0) : (this.enemySprite = 1);
 
       if (this.collision) {
@@ -91,7 +88,6 @@ class Enemy {
         this.y -= this.Vspeed;
         this.speed = -this.speed;
         let chance = parseInt(Math.random() * 10);
-        //   console.log(chance);
         if (chance % 2 == 0) {
           this.Hspeed = 0;
           this.Vspeed = this.speed;
